@@ -1,0 +1,291 @@
+/* ===== VARIAVEIS GLOBAIS (NOVO) ===== */
+/* Centraliza todas as suas cores e sombras para fácil manutenção */
+:root {
+  --bg-dark: #1f1f1f;
+  --bg-light: #2c2c2c;
+  --bg-medium: #3a3a3a;
+  --color-primary: #d4af37;
+  --color-text: #ffffff;
+  --color-text-muted: #aaa;
+  --shadow-color-light: rgba(0, 0, 0, 0.4);
+  --shadow-color-medium: rgba(0, 0, 0, 0.5);
+  --shadow-color-dark: rgba(0, 0, 0, 0.6);
+}
+
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Sora", sans-serif;
+  background-color: var(--bg-dark); /* (REFATORADO) */
+  color: var(--color-text); /* (REFATORADO) */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+  background-color: var(--bg-light); /* (REFATORADO) */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 2rem;
+  box-shadow: 0 2px 8px var(--shadow-color-light); /* (REFATORADO) */
+  z-index: 10;
+  position: relative;
+}
+
+.navbar__logo {
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--color-primary); /* (REFATORADO) */
+  letter-spacing: 1px;
+}
+
+.navbar__menu {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 1.8rem;
+}
+
+.navbar__menu li {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.navbar__menu li:hover {
+  color: var(--color-primary); /* (REFATORADO) */
+}
+
+/* ===== DROPDOWN ===== */
+.dropdown {
+  position: relative;
+}
+
+.dropdown__btn {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  padding: 0.4rem 0;
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+}
+
+/* Conteúdo */
+.dropdown__content {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  background-color: var(--bg-light); /* (REFATORADO) */
+  box-shadow: 0 2px 10px var(--shadow-color-dark); /* (REFATORADO) */
+  border-radius: 0.5rem;
+  list-style: none;
+  padding: 0.5rem 0;
+  min-width: 170px;
+  z-index: 20;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+}
+
+.dropdown:hover .dropdown__content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown:hover .arrow {
+  transform: rotate(180deg);
+}
+
+.dropdown__content li {
+  padding: 0.6rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 0.3s, color 0.3s;
+  white-space: nowrap;
+}
+
+.dropdown__content li:hover {
+  background-color: var(--bg-medium); /* (REFATORADO) */
+  color: var(--color-primary); /* (REFATORADO) */
+}
+
+/* ===== DASHBOARD ===== */
+.dashboard {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 3rem 1rem;
+  flex-wrap: wrap;
+}
+
+/* ===== CARD ===== */
+.card {
+  background-color: var(--bg-light); /* (REFATORADO) */
+  border-radius: 1rem;
+  padding: 1.5rem 2rem;
+  width: 320px;
+  box-shadow: 0 4px 10px var(--shadow-color-light); /* (REFATORADO) */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px var(--shadow-color-medium); /* (REFATORADO) */
+}
+
+/* ===== CARD INFO (CORRIGIDO E OTIMIZADO) ===== */
+.card--info h2 {
+  font-size: 1rem;
+  color: var(--color-primary); /* (REFATORADO) */
+  margin-bottom: 0.4rem;
+}
+
+.valor,
+.lucro {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.progress-bar {
+  background-color: var(--bg-medium); /* (REFATORADO) */
+  border-radius: 1rem;
+  overflow: hidden;
+  height: 8px;
+  margin-bottom: 1.5rem;
+  /* (CORREÇÃO) A largura foi removida daqui. */
+}
+
+.progress {
+  background-color: var(--color-primary); /* (REFATORADO) */
+  height: 100%;
+  transition: width 0.5s ease;
+  
+  /* (OTIMIZADO) A largura agora é controlada pela variável --progress-percent */
+  width: calc(var(--progress-percent) * 1%);
+}
+
+/* ===== CARD CHART (OTIMIZADO) ===== */
+.card--chart {
+  text-align: center;
+  
+  /* (OTIMIZADO) Usamos um contador CSS para ler a variável e usá-la no texto */
+  counter-reset: percent var(--progress-percent);
+}
+
+.chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chart__circle {
+  width: 160px;
+  height: 160px;
+  transform: rotate(-90deg);
+}
+
+.chart__bg {
+  fill: none;
+  stroke: var(--bg-medium); /* (REFATORADO) */
+  stroke-width: 3.5;
+}
+
+.chart__progress {
+  fill: none;
+  stroke: var(--color-primary); /* (REFATORADO) */
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.4s ease;
+  
+  /* (OTIMIZADO) O "stroke-dasharray" agora é controlado pela variável. */
+  stroke-dasharray: var(--progress-percent) 100;
+}
+
+.chart__text {
+  fill: var(--color-primary); /* (REFATORADO) */
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  transform: rotate(90deg);
+}
+
+/* (OTIMIZADO) Injeta o valor do contador (ex: "60%") dinamicamente */
+.chart__text::after {
+  content: counter(percent) "%";
+}
+
+.chart__label {
+  margin-top: 1rem;
+  color: var(--color-text-muted); /* (REFATORADO) */
+  font-size: 0.9rem;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  background-color: var(--bg-light); /* (REFATORADO) */
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 0.85rem;
+  color: var(--color-text-muted); /* (REFATORADO) */
+}
+
+.footer a {
+  color: var(--color-primary); /* (REFATORADO) */
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* ===== RESPONSIVO (Sem alterações) ===== */
+@media (max-width: 768px) {
+  .dashboard {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 90%;
+    max-width: 350px;
+  }
+
+  .navbar__menu {
+    gap: 1rem;
+  }
+
+  .dropdown__content {
+    left: auto;
+    right: 0;
+  }
+}

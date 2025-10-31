@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel MEI · N.O.V.A</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <header class="navbar">
+      <div class="navbar__logo">N.O.V.A</div>
+      <nav>
+        <ul class="navbar__menu">
+          <li><i class="bx bx-home"></i><span>Início</span></li>
+          <li><i class="bx bx-bar-chart"></i><span>Relatórios</span></li>
+          <li class="dropdown">
+            <button class="dropdown__btn">
+              <i class="bx bx-briefcase"></i>
+              <span>Trabalhos</span>
+              <i class="bx bx-chevron-down arrow"></i>
+            </button>
+            <ul class="dropdown__content">
+              <li><i class="bx bx-user"></i> MeiMei</li>
+              <li><i class="bx bx-data"></i> Dados</li>
+              <li><i class="bx bx-package"></i> Estoque</li>
+            </ul>
+          </li>
+          <li><i class="bx bx-user-circle"></i></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="dashboard" style="--progress-percent: 60">
+      <section class="card card--info">
+        <h2>Meta</h2>
+        <p class="valor">R$ 5.000,00</p>
+
+        <div class="progress-bar">
+          <div class="progress"></div>
+        </div>
+
+        <h2>Lucro Atual</h2>
+        <p class="lucro">R$ 3.000,00</p>
+      </section>
+
+      <section class="card card--chart">
+        <div class="chart">
+          <svg viewBox="0 0 36 36" class="chart__circle">
+            <path
+              class="chart__bg"
+              d="M18 2.0845
+                a 15.9155 15.9155 0 0 1 0 31.831
+                a 15.9155 15.9155 0 0 1 0 -31.831"
+            />
+            <path
+              class="chart__progress"
+              d="M18 2.0845
+                a 15.9155 15.9155 0 0 1 0 31.831
+                a 15.9155 15.9155 0 0 1 0 -31.831"
+            />
+            <text x="18" y="20.35" class="chart__text"></text>
+          </svg>
+          <p class="chart__label">Progresso até a meta</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>
+        © 2025 N.O.V.A. Todos os direitos reservados ·
+        <a href="#">Termos</a> · <a href="#">Privacidade</a>
+      </p>
+    </footer>
+  </body>
+</html>
