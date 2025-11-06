@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel MEI · N.O.V.A</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <header class="barra-navegacao">
+      <div class="barra-navegacao__logo">N.O.V.A</div>
+      <nav>
+        <ul class="barra-navegacao__menu">
+          <li class="item-ativo">
+            <a href="index.html">
+              <i class="bx bx-home"></i><span>Início</span>
+            </a>
+          </li>
+          <li>
+            <a href="../relatorio/index.html">
+              <i class="bx bx-bar-chart"></i><span>Relatórios</span>
+            </a>
+          </li>
+
+          <li class="menu-suspenso">
+            <button
+              class="menu-suspenso__botao"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <i class="bx bx-briefcase"></i>
+              <span>Trabalhos</span>
+              <i class="bx bx-chevron-down seta"></i>
+            </button>
+            <ul class="menu-suspenso__conteudo">
+              <li>
+                <a href="#"><i class="bx bx-user"></i> MeiMei</a>
+              </li>
+              <li>
+                <a href="../dados/index.html"
+                  ><i class="bx bx-data"></i> Dados</a
+                >
+              </li>
+              <li>
+                <a href="#"><i class="bx bx-package"></i> Estoque</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#" aria-label="Perfil do Usuário">
+              <i class="bx bx-user-circle"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="painel">
+      <section class="cartao cartao--informacoes">
+        <h2>Meta de Lucro</h2>
+        <p class="valor" id="meta-lucro">R$ 5.000,00</p>
+        <div class="barra-progresso">
+          <div class="barra-progresso__preenchimento"></div>
+        </div>
+        <h2>Lucro Atual</h2>
+        <p class="lucro" id="lucro-atual">R$ 3.000,00</p>
+      </section>
+
+      <section class="cartao cartao--grafico">
+        <div class="grafico">
+          <svg viewBox="0 0 36 36" class="grafico__circulo">
+            <path
+              class="grafico__fundo"
+              d="M18 2.0845
+                 a 15.9155 15.9155 0 0 1 0 31.831
+                 a 15.9155 15.9155 0 0 1 0 -31.831"
+            />
+            <path
+              class="grafico__progresso"
+              d="M18 2.0845
+                 a 15.9155 15.9155 0 0 1 0 31.831
+                 a 15.9155 15.9155 0 0 1 0 -31.831"
+            />
+            <text x="18" y="20.35" class="grafico__texto">0%</text>
+          </svg>
+          <p class="grafico__etiqueta">Progresso até a meta</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="rodape">
+      <p>
+        © 2025 N.O.V.A. Todos os direitos reservados ·
+        <a href="#">Termos</a> · <a href="#">Privacidade</a>
+      </p>
+    </footer>
+
+    <script src="script.js" defer></script>
+  </body>
+</html>

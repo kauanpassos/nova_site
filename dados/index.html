@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dados Cadastrais · N.O.V.A</title>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <header class="barra-navegacao">
+      <div class="barra-navegacao__logo">N.O.V.A</div>
+      <nav>
+        <ul class="barra-navegacao__menu">
+          <li>
+            <a href="../inicio/index.html">
+              <i class="bx bx-home"></i><span>Início</span>
+            </a>
+          </li>
+          <li>
+            <a href="../relatorio/index.html">
+              <i class="bx bx-bar-chart"></i><span>Relatórios</span>
+            </a>
+          </li>
+
+          <li class="menu-suspenso item-ativo">
+            <button
+              class="menu-suspenso__botao"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <i class="bx bx-briefcase"></i>
+              <span>Trabalhos</span>
+              <i class="bx bx-chevron-down seta"></i>
+            </button>
+            <ul class="menu-suspenso__conteudo">
+              <li>
+                <a href="#"><i class="bx bx-user"></i> MeiMei</a>
+              </li>
+              <li>
+                <a href="index.html" class="item-ativo-filho">
+                  <i class="bx bx-data"></i> Dados
+                </a>
+              </li>
+              <li>
+                <a href="#"><i class="bx bx-package"></i> Estoque</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#" aria-label="Perfil do Usuário"
+              ><i class="bx bx-user-circle"></i
+            ></a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="conteudo-principal">
+      <section class="cabecalho-pagina">
+        <h1>Ficha Cadastral do MEI</h1>
+        <p>
+          Mantenha seus dados empresariais atualizados para análises precisas.
+        </p>
+      </section>
+
+      <form class="cartao formulario-dados">
+        <fieldset class="grupo-campos">
+          <legend>
+            <i class="bx bx-user-circle"></i> Dados Pessoais do Titular
+          </legend>
+
+          <div class="campo-linha">
+            <div class="campo">
+              <label for="nome">Nome Completo</label>
+              <input
+                type="text"
+                id="nome"
+                value="Ana Júlia Pereira Souza"
+                readonly
+              />
+            </div>
+            <div class="campo">
+              <label for="cpf">CPF</label>
+              <input type="text" id="cpf" value="***.123.456-**" readonly />
+            </div>
+          </div>
+
+          <div class="campo-linha">
+            <div class="campo">
+              <label for="email">E-mail de Contato</label>
+              <input type="email" id="email" value="ana.souza@emailficticio.com" />
+            </div>
+            <div class="campo">
+              <label for="telefone">Telefone</label>
+              <input type="tel" id="telefone" value="(11) 98877-6655" />
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="grupo-campos">
+          <legend><i class="bx bx-briefcase"></i> Informações do MEI</legend>
+
+          <div class="campo-linha">
+            <div class="campo">
+              <label for="razao-social">Razão Social</label>
+              <input
+                type="text"
+                id="razao-social"
+                value="ANA PEREIRA SOUZA CONSULTORIA TI MEI"
+                readonly
+              />
+            </div>
+            <div class="campo">
+              <label for="cnpj">CNPJ</label>
+              <input
+                type="text"
+                id="cnpj"
+                value="42.123.456/0001-77"
+                readonly
+              />
+            </div>
+          </div>
+
+          <div class="campo-linha">
+            <div class="campo">
+              <label for="cnae">Atividade Principal (CNAE)</label>
+              <input
+                type="text"
+                id="cnae"
+                value="62.01-0/01 - Desenvolvimento de Programas"
+                readonly
+              />
+            </div>
+            <div class="campo">
+              <label for="status">Situação Cadastral</label>
+              <div class="selo-status selo-status--ativo">Ativo</div>
+            </div>
+          </div>
+
+          <div class="campo-linha">
+            <div class="campo campo--completo">
+              <label for="endereco">Endereço Empresarial</label>
+              <input
+                type="text"
+                id="endereco"
+                value="Avenida Paulista, 1500 - Bela Vista - São Paulo / SP"
+              />
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="formulario-acoes">
+          <button type="submit" class="botao botao--principal">
+            <i class="bx bx-save"></i> Salvar Alterações
+          </button>
+          <button type="button" class="botao botao--secundario">
+            <i class="bx bx-printer"></i> Imprimir Ficha
+          </button>
+        </div>
+      </form>
+    </main>
+
+    <footer class="rodape">
+      <p>
+        © 2025 N.O.V.A. Todos os direitos reservados ·

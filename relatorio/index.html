@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Relatórios · N.O.V.A</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <header class="barra-navegacao">
+      <div class="barra-navegacao__logo">N.O.V.A</div>
+      <nav>
+        <ul class="barra-navegacao__menu">
+          <li>
+            <a href="../inicio/index.html">
+              <i class="bx bx-home"></i><span>Início</span>
+            </a>
+          </li>
+          <li class="item-ativo">
+            <a href="index.html">
+              <i class="bx bx-bar-chart"></i><span>Relatórios</span>
+            </a>
+          </li>
+
+          <li class="menu-suspenso">
+            <button
+              class="menu-suspenso__botao"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <i class="bx bx-briefcase"></i>
+              <span>Trabalhos</span>
+              <i class="bx bx-chevron-down seta"></i>
+            </button>
+            <ul class="menu-suspenso__conteudo">
+              <li>
+                <a href="#"><i class="bx bx-user"></i> MeiMei</a>
+              </li>
+              <li>
+                <a href="../dados/index.html"
+                  ><i class="bx bx-data"></i> Dados</a
+                >
+              </li>
+              <li>
+                <a href="#"><i class="bx bx-package"></i> Estoque</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#" aria-label="Perfil do Usuário"
+              ><i class="bx bx-user-circle"></i
+            ></a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="conteudo-principal">
+      <section class="cabecalho-relatorio">
+        <h1>Relatórios e Análises</h1>
+        <div class="filtros">
+          <label for="filtro-periodo">Período:</label>
+          <select id="filtro-periodo" class="filtro-select">
+            <option value="mes">Este Mês</option>
+            <option value="trimestre">Último Trimestre</option>
+            <option value="ano">Este Ano</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="resumo-relatorio">
+        <div class="cartao cartao--resumo">
+          <h2>Receita Total</h2>
+          <p class="valor cor-receita">R$ 18.500,00</p>
+          <span class="detalhe-resumo">+5% vs. período anterior</span>
+        </div>
+        <div class="cartao cartao--resumo">
+          <h2>Despesa Total</h2>
+          <p class="valor cor-despesa">R$ 4.200,00</p>
+          <span class="detalhe-resumo">-2% vs. período anterior</span>
+        </div>
+        <div class="cartao cartao--resumo">
+          <h2>Lucro Líquido</h2>
+          <p class="valor cor-lucro">R$ 14.300,00</p>
+          <span class="detalhe-resumo">Margem de 77%</span>
+        </div>
+      </section>
+
+      <section class="cartao cartao--grafico-barra">
+        <h2>Receita (Últimos 6 Meses)</h2>
+        <div id="grafico-barra-receita"></div>
+      </section>
+    </main>
+
+    <footer class="rodape">
+      <p>
+        © 2025 N.O.V.A. Todos os direitos reservados ·
+        <a href="#">Termos</a> · <a href="#">Privacidade</a>
+      </p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="script.js" defer></script>
+  </body>
+</html>
