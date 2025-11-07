@@ -403,3 +403,107 @@ ul {
     justify-content: center;
   }
 }
+
+/* ========================================================== */
+/* ADIÇÕES "MY CAPTIN" (CSS PARA NOVOS ELEMENTOS)             */
+/* ========================================================== */
+
+/* --- Estilos para <textarea> --- */
+.campo textarea {
+  background-color: var(--fundo-medio);
+  border: 1px solid var(--fundo-medio);
+  color: var(--cor-texto);
+  padding: 0.8rem 1rem;
+  border-radius: 0.4rem;
+  font-size: 1rem;
+  font-family: "Sora", sans-serif;
+  transition: border-color 0.3s;
+  resize: vertical;
+  min-height: 80px;
+}
+
+.campo textarea:focus {
+  border-color: var(--cor-principal);
+  outline: none;
+}
+
+.campo textarea[readonly] {
+  background-color: var(--fundo-claro);
+  color: var(--cor-texto-secundario);
+  cursor: not-allowed;
+  border: 1px dashed var(--fundo-medio);
+}
+
+/* --- Novos Modificadores de Botão e Campo --- */
+.botao--full-width {
+  width: 100%;
+  justify-content: center;
+}
+
+.campo--acao-direita {
+  text-align: right;
+}
+
+.botao--adicionar {
+  padding: 0.6rem 1rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+  width: auto;
+}
+
+/* --- Estilos para a Lista de Serviços --- */
+.lista-servicos {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.lista-servicos__item {
+  background-color: var(--fundo-medio);
+  border-radius: 0.5rem;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
+  border-left: 4px solid var(--cor-principal);
+  transition: box-shadow 0.3s;
+}
+
+.lista-servicos__item:hover {
+  box-shadow: 0 2px 8px var(--cor-sombra-clara);
+}
+
+.lista-servicos__item h4 {
+  font-size: 1.1rem;
+  color: var(--cor-texto);
+  margin-bottom: 0.25rem;
+}
+
+.lista-servicos__item p {
+  font-size: 0.9rem;
+  color: var(--cor-texto-secundario);
+  line-height: 1.5;
+  margin-bottom: 0.75rem;
+}
+
+.lista-servicos__detalhes {
+  font-size: 0.9rem;
+  color: var(--cor-texto);
+  font-weight: 600;
+}
+
+/* --- Estilos para os botões de Ação da Lista --- */
+.lista-servicos__item-acoes {
+  text-align: right;
+  margin-top: 0.5rem;
+}
+
+.lista-servicos__item-acoes .botao--micro {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+  background: var(--fundo-claro);
+  color: var(--cor-principal);
+}
+
+.lista-servicos__item-acoes .botao--micro:hover {
+  background: var(--fundo-escuro);
+  opacity: 1;
+}

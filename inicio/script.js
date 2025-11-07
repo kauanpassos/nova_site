@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     botaoMenu.addEventListener("click", (evento) => {
       // Impede que o clique se espalhe para outros elementos
       evento.stopPropagation();
-      
+
       // Adiciona ou remove a classe "ativo" no menu
       // O CSS cuida de mostrar ou esconder o menu baseado nessa classe.
       menuSuspenso.classList.toggle("ativo");
@@ -50,7 +50,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Verifica se os elementos necessários existem antes de continuar
     if (!painel || !elementoMeta || !elementoLucro || !textoGrafico) {
-      console.error("Erro: Elementos do painel não encontrados. Verifique os IDs no HTML.");
+      console.error(
+        "Erro: Elementos do painel não encontrados. Verifique os IDs no HTML."
+      );
       return; // Para a execução se algo estiver faltando
     }
 
@@ -77,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (porcentagem > 100) {
       porcentagem = 100;
     }
-    
+
     // Arredonda o número (ex: 60)
     const porcentagemArredondada = Math.round(porcentagem);
 
@@ -92,6 +94,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 🚀 Chama a função para executar assim que a página carrega
   atualizarProgresso();
-  
+
   console.log("Script da Página Inicial carregado com sucesso!");
 });

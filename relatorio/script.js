@@ -129,10 +129,13 @@ document.addEventListener("DOMContentLoaded", () => {
         y: {
           // Formata o valor na dica (ex: R$ 5.200,00)
           formatter: (valor) => {
-            return "R$ " + valor.toLocaleString("pt-BR", {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            });
+            return (
+              "R$ " +
+              valor.toLocaleString("pt-BR", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })
+            );
           },
         },
       },

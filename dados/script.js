@@ -36,6 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
       botaoMenu.setAttribute("aria-expanded", "false");
     }
   });
-  
+
   console.log("Script da Página de Dados carregado com sucesso!");
 });

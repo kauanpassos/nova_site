@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dados Cadastrais · N.O.V.A</title>
+    <title>Dados da Empresa · N.O.V.A</title>
 
     <link rel="stylesheet" href="style.css" />
 
@@ -32,9 +32,9 @@
               <i class="bx bx-bar-chart"></i><span>Relatórios</span>
             </a>
           </li>
-
           <li class="menu-suspenso item-ativo">
             <button
+              type="button"
               class="menu-suspenso__botao"
               aria-haspopup="true"
               aria-expanded="false"
@@ -59,8 +59,8 @@
           </li>
           <li>
             <a href="#" aria-label="Perfil do Usuário"
-              ><i class="bx bx-user-circle"></i
-            ></a>
+              ><i class="bx bx-user-circle"></i></a
+            >
           </li>
         </ul>
       </nav>
@@ -68,59 +68,20 @@
 
     <main class="conteudo-principal">
       <section class="cabecalho-pagina">
-        <h1>Ficha Cadastral do MEI</h1>
+        <h1>Dados da Empresa</h1>
         <p>
-          Mantenha seus dados empresariais atualizados para análises precisas.
+          Informações da sua Pessoa Jurídica (PJ) para gestão e emissão de
+          documentos.
         </p>
       </section>
 
       <form class="cartao formulario-dados">
         <fieldset class="grupo-campos">
           <legend>
-            <i class="bx bx-user-circle"></i> Dados Pessoais do Titular
+            <i class="bx bx-briefcase"></i> Informações Jurídicas e Cadastrais
           </legend>
 
           <div class="campo-linha">
-            <div class="campo">
-              <label for="nome">Nome Completo</label>
-              <input
-                type="text"
-                id="nome"
-                value="Ana Júlia Pereira Souza"
-                readonly
-              />
-            </div>
-            <div class="campo">
-              <label for="cpf">CPF</label>
-              <input type="text" id="cpf" value="***.123.456-**" readonly />
-            </div>
-          </div>
-
-          <div class="campo-linha">
-            <div class="campo">
-              <label for="email">E-mail de Contato</label>
-              <input type="email" id="email" value="ana.souza@emailficticio.com" />
-            </div>
-            <div class="campo">
-              <label for="telefone">Telefone</label>
-              <input type="tel" id="telefone" value="(11) 98877-6655" />
-            </div>
-          </div>
-        </fieldset>
-
-        <fieldset class="grupo-campos">
-          <legend><i class="bx bx-briefcase"></i> Informações do MEI</legend>
-
-          <div class="campo-linha">
-            <div class="campo">
-              <label for="razao-social">Razão Social</label>
-              <input
-                type="text"
-                id="razao-social"
-                value="ANA PEREIRA SOUZA CONSULTORIA TI MEI"
-                readonly
-              />
-            </div>
             <div class="campo">
               <label for="cnpj">CNPJ</label>
               <input
@@ -130,27 +91,90 @@
                 readonly
               />
             </div>
-          </div>
-
-          <div class="campo-linha">
             <div class="campo">
-              <label for="cnae">Atividade Principal (CNAE)</label>
+              <label for="razao-social">Razão Social</label>
               <input
                 type="text"
-                id="cnae"
-                value="62.01-0/01 - Desenvolvimento de Programas"
+                id="razao-social"
+                value="JOAO DA SILVA MARKETING DIGITAL 12345678900"
                 readonly
               />
-            </div>
-            <div class="campo">
-              <label for="status">Situação Cadastral</label>
-              <div class="selo-status selo-status--ativo">Ativo</div>
             </div>
           </div>
 
           <div class="campo-linha">
             <div class="campo campo--completo">
-              <label for="endereco">Endereço Empresarial</label>
+              <label for="nome-fantasia">Nome Fantasia</label>
+              <input type="text" id="nome-fantasia" value="JS Marketing" />
+            </div>
+          </div>
+
+          <div class="campo-linha">
+            <div class="campo">
+              <label for="data-abertura">Data de Abertura</label>
+              <input
+                type="text"
+                id="data-abertura"
+                value="10/03/2021"
+                readonly
+              />
+            </div>
+            <div class="campo">
+              <label for="situacao">Situação Cadastral</label>
+              <div class="selo-status selo-status--ativo">Ativa</div>
+            </div>
+            <div class="campo">
+              <label for="natureza">Natureza Jurídica</label>
+              <input
+                type="text"
+                id="natureza"
+                value="213-5 - Empresário (Individual)"
+                readonly
+              />
+            </div>
+          </div>
+
+          <div class="campo-linha">
+            <div class="campo">
+              <label for="insc-municipal">Inscrição Municipal</label>
+              <input type="text" id="insc-municipal" value="1.234.567-8" />
+            </div>
+            <div class="campo">
+              <label for="insc-estadual">Inscrição Estadual</label>
+              <input
+                type="text"
+                id="insc-estadual"
+                value="Isento"
+                placeholder="Obrigatória para Comércio"
+              />
+            </div>
+          </div>
+
+          <div class="campo-linha">
+            <div class="campo campo--completo">
+              <label for="cnae-principal">CNAE Principal</label>
+              <input
+                type="text"
+                id="cnae-principal"
+                value="7319-0/03 - Marketing direto"
+                readonly
+              />
+            </div>
+          </div>
+
+          <div class="campo-linha">
+            <div class="campo campo--completo">
+              <label for="cnae-secundarios">CNAEs Secundários</label>
+              <textarea id="cnae-secundarios" rows="3" readonly>
+8599-6/04 - Treinamento em desenvolvimento profissional
+5811-5/00 - Edição de livros</textarea
+              >
+            </div>
+          </div>
+
+          <div class="campo-linha">
+            <div class="campo campo--completo">
+              <label for="endereco">Endereço Comercial</label>
               <input
                 type="text"
                 id="endereco"
@@ -160,12 +184,135 @@
           </div>
         </fieldset>
 
+        <fieldset class="grupo-campos">
+          <legend>
+            <i class="bx bx-dollar-circle"></i> Informações Financeiras e
+            Tributárias
+          </legend>
+
+          <div class="campo-linha">
+            <div class="campo">
+              <label for="banco">Banco (PJ)</label>
+              <input
+                type="text"
+                id="banco"
+                value="Banco Digital Exemplo S.A."
+              />
+            </div>
+            <div class="campo">
+              <label for="agencia">Agência (PJ)</label>
+              <input type="text" id="agencia" value="0001" />
+            </div>
+          </div>
+
+          <div class="campo-linha">
+            <div class="campo">
+              <label for="conta">Conta Corrente (PJ)</label>
+              <input type="text" id="conta" value="123456-7" />
+            </div>
+            <div class="campo">
+              <label for="pix">Chave Pix Empresarial (CNPJ)</label>
+              <input type="text" id="pix" value="42.123.456/0001-77" />
+            </div>
+          </div>
+
+          <div class="campo-linha">
+            <div class="campo">
+              <label for="status-das">Situação DAS (Este Mês)</label>
+              <div class="selo-status selo-status--ativo">Pago</div>
+            </div>
+            <div class="campo">
+              <label>Ações DAS</label>
+              <button
+                type="button"
+                class="botao botao--secundario botao--full-width"
+              >
+                <i class="bx bx-barcode-reader"></i> Gerar/Consultar Guias
+              </button>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="grupo-campos">
+          <legend><i class="bx bx-purchase-tag-alt"></i> Serviços ou Produtos</legend>
+
+          <div class="campo-linha">
+            <div class="campo campo--completo campo--acao-direita">
+              <button
+                type="button"
+                class="botao botao--principal botao--adicionar"
+              >
+                <i class="bx bx-plus"></i> Adicionar Novo Serviço
+              </button>
+            </div>
+          </div>
+
+          <ul class="lista-servicos">
+            <li class="lista-servicos__item">
+              <h4>Consultoria de Marketing Digital</h4>
+              <p>
+                Análise de presença online, definição de persona e estratégia de
+                conteúdo para redes sociais.
+              </p>
+              <div class="lista-servicos__detalhes">
+                Valor: R$ 1.500,00 (Pacote) | Área: Online (Brasil)
+              </div>
+              <div class="lista-servicos__item-acoes">
+                <button
+                  type="button"
+                  class="botao botao--micro"
+                  aria-label="Editar Serviço"
+                  title="Editar Serviço"
+                >
+                  <i class="bx bx-pencil"></i>
+                </button>
+                <button
+                  type="button"
+                  class="botao botao--micro"
+                  aria-label="Excluir Serviço"
+                  title="Excluir Serviço"
+                >
+                  <i class="bx bx-trash"></i>
+                </button>
+              </div>
+            </li>
+
+            <li class="lista-servicos__item">
+              <h4>Gestão de Tráfego Pago</h4>
+              <p>
+                Criação e otimização de campanhas no Google Ads e Meta Ads.
+              </p>
+              <div class="lista-servicos__detalhes">
+                Valor: R$ 800,00 (Mensal) | Área: Online (Brasil)
+              </div>
+              <div class="lista-servicos__item-acoes">
+                <button
+                  type="button"
+                  class="botao botao--micro"
+                  aria-label="Editar Serviço"
+                  title="Editar Serviço"
+                >
+                  <i class="bx bx-pencil"></i>
+                </button>
+                <button
+                  type="button"
+                  class="botao botao--micro"
+                  aria-label="Excluir Serviço"
+                  title="Excluir Serviço"
+                >
+                  <i class="bx bx-trash"></i>
+                </button>
+              </div>
+            </li>
+          </ul>
+        </fieldset>
+
         <div class="formulario-acoes">
-          <button type="submit" class="botao botao--principal">
-            <i class="bx bx-save"></i> Salvar Alterações
-          </button>
           <button type="button" class="botao botao--secundario">
             <i class="bx bx-printer"></i> Imprimir Ficha
+          </button>
+          <button type="submit" class="botao botao--principal">
+            <i class="bx bx-save"></i> Salvar Alterações
           </button>
         </div>
       </form>
@@ -174,3 +321,10 @@
     <footer class="rodape">
       <p>
         © 2025 N.O.V.A. Todos os direitos reservados ·
+        <a href="#">Termos</a> · <a href="#">Privacidade</a>
+      </p>
+    </footer>
+
+    <script src="script.js" defer></script>
+  </body>
+</html>
