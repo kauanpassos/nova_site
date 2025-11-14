@@ -1,4 +1,5 @@
 /* ===== VARIÁVEIS GLOBAIS (EM PORTUGUÊS) ===== */
+/* Centraliza todas as suas cores e sombras para fácil manutenção */
 :root {
   --fundo-escuro: #1f1f1f;
   --fundo-claro: #2c2c2c;
@@ -44,11 +45,7 @@ ul {
   list-style: none;
 }
 
-/* ========================================================== */
-/* CÓDIGO COMPARTILHADO (COPIADO DA PASTA_INICIO) */
-/* ========================================================== */
-
-/* ===== BARRA DE NAVEGAÇÃO ===== */
+/* ===== BARRA DE NAVEGAÇÃO (GLOBAL) ===== */
 .barra-navegacao {
   background-color: var(--fundo-claro);
   display: flex;
@@ -97,7 +94,7 @@ ul {
   font-weight: 600;
 }
 
-/* ===== MENU SUSPENSO (DROPDOWN) ===== */
+/* ===== MENU SUSPENSO (GLOBAL) ===== */
 .menu-suspenso {
   position: relative;
 }
@@ -158,7 +155,13 @@ ul {
   color: var(--cor-principal);
 }
 
-/* ===== CARTÃO (Estilo base) ===== */
+.menu-suspenso__conteudo .item-ativo-filho {
+  background-color: var(--fundo-medio);
+  color: var(--cor-principal);
+  font-weight: 600;
+}
+
+/* ===== CARTÃO (Estilo base GLOBAL) ===== */
 .cartao {
   background-color: var(--fundo-claro);
   border-radius: 1rem;
@@ -172,14 +175,143 @@ ul {
   box-shadow: 0 6px 15px var(--cor-sombra-media);
 }
 
-/* ===== RODAPÉ ===== */
+/* ===== BOTÕES (Estilo base GLOBAL) ===== */
+.botao {
+  padding: 0.8rem 1.5rem;
+  border-radius: 0.5rem;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  font-size: 0.95rem;
+}
+
+.botao--principal {
+  background-color: var(--cor-principal);
+  color: var(--fundo-escuro);
+}
+.botao--principal:hover {
+  opacity: 0.9;
+}
+
+.botao--secundario {
+  background-color: var(--fundo-medio);
+  color: var(--cor-texto);
+}
+.botao--secundario:hover {
+  opacity: 0.8;
+}
+
+/* ===== FORMULÁRIOS (Estilos base GLOBAIS) ===== */
+.grupo-campos {
+  border: 1px solid var(--fundo-medio);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  background-color: var(--fundo-escuro); 
+}
+
+.grupo-campos legend {
+  color: var(--cor-principal);
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 0 0.5rem;
+  margin-left: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.campo-linha {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.campo {
+  flex: 1; 
+  display: flex;
+  flex-direction: column;
+}
+
+.campo--completo {
+  flex: 100%;
+}
+
+.campo label {
+  font-size: 0.9rem;
+  color: var(--cor-texto-secundario);
+  margin-bottom: 0.4rem;
+}
+
+.campo input[type="text"],
+.campo input[type="email"],
+.campo input[type="tel"],
+.campo input[type="date"],
+.campo textarea,
+.campo select {
+  background-color: var(--fundo-medio);
+  border: 1px solid var(--fundo-medio);
+  color: var(--cor-texto);
+  padding: 0.8rem 1rem;
+  border-radius: 0.4rem;
+  font-size: 1rem;
+  font-family: "Sora", sans-serif;
+  transition: border-color 0.3s;
+}
+
+.campo input:focus,
+.campo textarea:focus,
+.campo select:focus {
+  border-color: var(--cor-principal);
+  outline: none;
+}
+
+.campo input[readonly],
+.campo textarea[readonly] {
+  background-color: var(--fundo-claro);
+  color: var(--cor-texto-secundario);
+  cursor: not-allowed;
+  border: 1px dashed var(--fundo-medio);
+}
+
+.campo textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* (Estilo copiado do 'relatorio' para ser global) */
+.filtro-select {
+  background-color: var(--fundo-medio);
+  color: var(--cor-texto);
+  border: 1px solid var(--fundo-medio);
+  border-radius: 0.4rem;
+  padding: 0.8rem 1rem;
+  font-family: "Sora", sans-serif;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23AAAAAA%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-13%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2013l128%20128c3.6%203.6%207.8%205.4%2013%205.4s9.4-1.8%2013-5.4l128-128c3.6-3.6%205.4-7.8%205.4-13%200-5-1.8-9.4-5.4-13z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat;
+  background-position: right 0.7rem top 50%;
+  background-size: 0.65rem auto;
+  padding-right: 2.5rem;
+}
+
+
+/* ===== RODAPÉ (GLOBAL) ===== */
 .rodape {
   background-color: var(--fundo-claro);
   text-align: center;
   padding: 1rem 0;
   font-size: 0.85rem;
   color: var(--cor-texto-secundario);
-  margin-top: auto;
+  margin-top: auto; /* Garante que o rodapé fique no final */
 }
 
 .rodape a {
@@ -191,134 +323,26 @@ ul {
   text-decoration: underline;
 }
 
-/* ========================================================== */
-/* NOVOS ESTILOS (ESPECÍFICOS DA PÁGINA DE RELATÓRIOS) */
-/* ========================================================== */
-
-.conteudo-principal {
-  flex: 1;
-  max-width: 1200px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-/* --- Cabeçalho e Filtros --- */
-.cabecalho-relatorio {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap; /* Permite quebra de linha em telas pequenas */
-  gap: 1rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--fundo-medio);
-}
-
-.cabecalho-relatorio h1 {
-  font-size: 1.8rem;
-  color: var(--cor-principal);
-}
-
-.filtros {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.filtro-select {
-  background-color: var(--fundo-medio);
-  color: var(--cor-texto);
-  border: 1px solid var(--fundo-medio);
-  border-radius: 0.4rem;
-  padding: 0.5rem 0.8rem;
-  font-family: "Sora", sans-serif;
-  cursor: pointer;
-}
-
-/* --- Cartões de Resumo --- */
-.resumo-relatorio {
-  display: grid;
-  /* Cria 3 colunas de tamanho igual, mas permite que tenham no mínimo 250px */
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-}
-
-.cartao--resumo h2 {
-  font-size: 1rem;
-  color: var(--cor-texto-secundario);
-  margin-bottom: 0.5rem;
-  font-weight: 400;
-}
-
-.cartao--resumo .valor {
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin-bottom: 0.3rem;
-}
-
-/* Cores específicas para os valores */
-.cor-receita,
-.cor-lucro {
-  color: var(--cor-sucesso);
-}
-
-.cor-despesa {
-  color: var(--cor-perigo);
-}
-
-.detalhe-resumo {
-  font-size: 0.85rem;
-  color: var(--cor-texto-secundario);
-}
-
-/* --- Gráfico de Barras --- */
-.cartao--grafico-barra {
-  padding-bottom: 1rem;
-}
-.cartao--grafico-barra h2 {
-  font-size: 1.2rem;
-  color: var(--cor-texto);
-  margin-bottom: 1.5rem;
-}
-
-/* ========================================================== */
-/* AJUSTES RESPONSIVOS (ESPECÍFICOS E GERAIS) */
-/* ========================================================== */
-
+/* ===== AJUSTES RESPONSIVOS (GLOBAIS) ===== */
 @media (max-width: 768px) {
+  .barra-navegacao {
+    padding: 0.8rem 1rem;
+  }
   .barra-navegacao__menu {
     gap: 1rem;
   }
-
-  /* Oculta o texto dos links na barra de navegação */
   .barra-navegacao__menu span {
     display: none;
   }
-
-  /* Ajusta o menu suspenso para abrir para a esquerda */
   .menu-suspenso__conteudo {
     left: auto;
     right: 0;
   }
 
-  /* --- Ajustes da Página de Relatórios --- */
-  .conteudo-principal {
-    padding: 1.5rem 1rem;
-  }
-
-  .cabecalho-relatorio {
+  /* Faz os campos de formulário ficarem um em cima do outro */
+  .campo-linha {
     flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .filtros {
-    width: 100%;
-  }
-
-  .filtro-select {
-    width: 100%;
+    gap: 1rem;
+    margin-top: 1rem;
   }
 }

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perfil Profissional · N.O.V.A</title>
+    <link rel="stylesheet" href="../styleGLOBAL.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="barra-navegacao">
+      <div class="barra-navegacao__logo">N.O.V.A</div>
+      <nav>
+        <ul class="barra-navegacao__menu">
+          <li><a href="../inicio/index.html"><i class="bx bx-home"></i><span>Início</span></a></li>
+          <li><a href="../relatorio/index.html"><i class="bx bx-bar-chart"></i><span>Relatórios</span></a></li>
+          <li class="menu-suspenso">
+            <button type="button" class="menu-suspenso__botao" aria-haspopup="true" aria-expanded="false">
+              <i class="bx bx-briefcase"></i>
+              <span>Trabalhos</span>
+              <i class="bx bx-chevron-down seta"></i>
+            </button>
+            <ul class="menu-suspenso__conteudo">
+              <li><a href="../meimei/index.html"><i class="bx bx-user"></i> MeiMei</a></li>
+              <li><a href="../lancamentos/index.html"><i class="bx bx-dollar-circle"></i> Lançamentos</a></li>
+              <li><a href="../area_juridica/index.html"><i class="bx bx-data"></i> Área Jurídica</a></li>
+              <li><a href="../estoque/index.html"><i class="bx bx-package"></i> Estoque</a></li> </ul>
+          </li>
+          <li>
+            <a href="index.html" class="item-ativo" aria-label="Perfil do Usuário"> <i class="bx bx-user-circle"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    
+    <main class="conteudo-principal-perfil">
+        <div class="profile-container" role="region" aria-label="Perfil Profissional Editável">
+            <div class="profile-photo" id="photoContainer" title="Clique para alterar foto">
+              <label for="photoInput">
+                <img id="profilePic" src="https://via.placeholder.com/300x300.png?text=Foto" alt="Foto de perfil">
+                <div class="photo-upload">Alterar foto</div>
+              </label>
+              <input id="photoInput" type="file" accept="image/*">
+            </div>
+            <h2 id="nameDisplay">—</h2>
+            <div id="usernameDisplay" class="username"></div>
+            <button class="edit-btn" id="editButton" aria-expanded="false">Editar Perfil</button>
+            <div class="section">
+            <h3>Informações profissionais</h3>
+            <p><strong>Metas:</strong> <span id="metaDisplay">—</span></p>
+            <p><strong>Loja:</strong> <span id="lojaDisplay">—</span></p>
+            </div>
+            <div class="section">
+            <h3>Sobre mim</h3>
+            <p id="sobreDisplay">—</p>
+            </div>
+            <div class="section">
+            <h3>Redes Sociais</h3>
+            <p><strong>WhatsApp:</strong> <span id="whatsDisplay">—</span></p>
+            <p><strong>Instagram:</strong> <span id="instaDisplay">—</span></p>
+            <p><strong>Facebook:</strong> <span id="faceDisplay">—</span></p>
+            </div>
+            <button class="reset-btn" id="resetButton">Redefinir Perfil</button>
+        </div>
+        <div class="modal" id="editModal">
+            <div class="modal-content">
+            <form class="edit-form" id="editForm" onsubmit="return false;">
+                <label for="editName">Nome do Empreendimento</label>
+                <input id="editName" type="text">
+                <label for="editUsername">Nome de Usuário</label>
+                <input id="editUsername" type="text">
+                <label for="editMeta">Metas</label>
+                <input id="editMeta" type="text">
+                <label for="editLoja">Descrição sobre sua empresa</label>
+                <input id="editLoja" type="text">
+                <label for="editSobre">Biografia</label>
+                <textarea id="editSobre" rows="3"></textarea>
+                <label for="editWhats">WhatsApp</label>
+                <input id="editWhats" type="text" placeholder="(XX) X XXXX-XXXX">
+                <label for="editInsta">Instagram</label>
+                <input id="editInsta" type="text" placeholder="@">
+                <label for="editFace">Facebook</label>
+                <input id="editFace" type="text" placeholder="@">
+                <button class="save-btn" id="saveButton" type="button">Salvar</button>
+                <button class="cancel-btn" id="cancelButton" type="button">Cancelar</button>
+            </form>
+            </div>
+        </div>
+        <div class="notification" id="notification">Perfil salvo com sucesso!</div>
+    </main>
+    <footer class="rodape">
+      <p>© 2025 N.O.V.A. Todos os direitos reservados · <a href="#">Termos</a> · <a href="#">Privacidade</a></p>
+    </footer>
+    <script src="../appGLOBAL.js" defer></script>
+    <script src="script.js" defer></script>
+  </body>
+</html>

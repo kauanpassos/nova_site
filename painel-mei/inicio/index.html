@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Painel MEI · N.O.V.A</title>
 
+    <link rel="stylesheet" href="../styleGLOBAL.css" />
     <link rel="stylesheet" href="style.css" />
+
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
@@ -22,7 +24,7 @@
       <nav>
         <ul class="barra-navegacao__menu">
           <li class="item-ativo">
-            <a href="index.html">
+            <a href="../inicio/index.html">
               <i class="bx bx-home"></i><span>Início</span>
             </a>
           </li>
@@ -31,7 +33,6 @@
               <i class="bx bx-bar-chart"></i><span>Relatórios</span>
             </a>
           </li>
-
           <li class="menu-suspenso">
             <button
               type="button"
@@ -44,21 +45,14 @@
               <i class="bx bx-chevron-down seta"></i>
             </button>
             <ul class="menu-suspenso__conteudo">
-              <li>
-                <a href="#"><i class="bx bx-user"></i> MeiMei</a>
-              </li>
-              <li>
-                <a href="../dados/index.html"
-                  ><i class="bx bx-data"></i> Dados</a
-                >
-              </li>
-              <li>
-                <a href="#"><i class="bx bx-package"></i> Estoque</a>
-              </li>
+              <li><a href="../meimei/index.html"><i class="bx bx-user"></i> MeiMei</a></li>
+              <li><a href="../lancamentos/index.html"><i class="bx bx-dollar-circle"></i> Lançamentos</a></li>
+              <li><a href="../area_juridica/index.html"><i class="bx bx-data"></i> Área Jurídica</a></li>
+              <li><a href="../estoque/index.html"><i class="bx bx-package"></i> Estoque</a></li>
             </ul>
           </li>
           <li>
-            <a href="#" aria-label="Perfil do Usuário">
+            <a href="../perfil/index.html" aria-label="Perfil do Usuário">
               <i class="bx bx-user-circle"></i>
             </a>
           </li>
@@ -69,12 +63,12 @@
     <main class="painel">
       <section class="cartao cartao--informacoes">
         <h2>Meta de Lucro</h2>
-        <p class="valor" id="meta-lucro">R$ 5.000,00</p>
+        <p class="valor" id="meta-lucro">R$ 0,00</p>
         <div class="barra-progresso">
           <div class="barra-progresso__preenchimento"></div>
         </div>
         <h2>Lucro Atual</h2>
-        <p class="lucro" id="lucro-atual">R$ 3.000,00</p>
+        <p class="lucro" id="lucro-atual">R$ 0,00</p>
       </section>
 
       <section class="cartao cartao--grafico">
@@ -83,20 +77,35 @@
             <path
               class="grafico__fundo"
               d="M18 2.0845
-                     a 15.9155 15.9155 0 0 1 0 31.831
-                     a 15.9155 15.9155 0 0 1 0 -31.831"
+                      a 15.9155 15.9155 0 0 1 0 31.831
+                      a 15.9155 15.9155 0 0 1 0 -31.831"
             />
             <path
               class="grafico__progresso"
               d="M18 2.0845
-                     a 15.9155 15.9155 0 0 1 0 31.831
-                     a 15.9155 15.9155 0 0 1 0 -31.831"
+                      a 15.9155 15.9155 0 0 1 0 31.831
+                      a 15.9155 15.9155 0 0 1 0 -31.831"
             />
             <text x="18" y="20.35" class="grafico__texto">0%</text>
           </svg>
           <p class="grafico__etiqueta">Progresso até a meta</p>
         </div>
       </section>
+
+      <section class="cartao cartao--lista" id="widget-lancamentos">
+        <h2><i class='bx bx-history'></i> Últimos Lançamentos</h2>
+        <ul class="lista-widget" id="lista-ultimos-lancamentos">
+          <li class="item-info">Carregando...</li>
+        </ul>
+      </section>
+
+      <section class="cartao cartao--lista" id="widget-estoque">
+        <h2><i class='bx bx-package'></i> Alerta de Estoque</h2>
+        <ul class="lista-widget" id="lista-estoque-baixo">
+          <li class="item-info">Carregando...</li>
+        </ul>
+      </section>
+
     </main>
 
     <footer class="rodape">
@@ -106,6 +115,7 @@
       </p>
     </footer>
 
+    <script src="../appGLOBAL.js" defer></script>
     <script src="script.js" defer></script>
   </body>
 </html>

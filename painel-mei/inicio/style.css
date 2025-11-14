@@ -1,0 +1,181 @@
+/* ===== PAINEL (Conteúdo Específico) ===== */
+.painel {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  padding: 3rem 1rem;
+  /* Garante que os itens de uma linha tenham a mesma altura */
+  align-content: stretch;
+}
+
+.cartao--informacoes,
+.cartao--grafico,
+.cartao--lista {
+  min-height: 250px;
+  /* Garante que o conteúdo interno possa crescer */
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== CARTÃO DE INFORMAÇÕES (Metas) - Sem Mudança ===== */
+.cartao--informacoes h2 {
+  font-size: 1rem;
+  color: var(--cor-principal);
+  margin-bottom: 0.4rem;
+}
+
+.valor,
+.lucro {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.barra-progresso {
+  background-color: var(--fundo-medio);
+  border-radius: 1rem;
+  overflow: hidden;
+  height: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.barra-progresso__preenchimento {
+  background-color: var(--cor-principal);
+  height: 100%;
+  transition: width 0.5s ease;
+  width: calc(var(--porcentagem, 0) * 1%);
+}
+
+/* ===== CARTÃO DO GRÁFICO (Circular) - Sem Mudança ===== */
+.cartao--grafico {
+  text-align: center;
+  justify-content: center; /* Centraliza o gráfico verticalmente */
+}
+
+.grafico {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.grafico__circulo {
+  width: 160px;
+  height: 160px;
+  transform: rotate(-90deg);
+}
+
+.grafico__fundo {
+  fill: none;
+  stroke: var(--fundo-medio);
+  stroke-width: 3.5;
+}
+
+.grafico__progresso {
+  fill: none;
+  stroke: var(--cor-principal);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.4s ease;
+  stroke-dasharray: var(--porcentagem, 0) 100;
+}
+
+.grafico__texto {
+  fill: var(--cor-principal);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  transform: rotate(90deg);
+}
+
+.grafico__etiqueta {
+  margin-top: 1rem;
+  color: var(--cor-texto-secundario);
+  font-size: 0.9rem;
+}
+
+/* ===== ESTILOS PARA WIDGETS DE LISTA ===== */
+
+.cartao--lista h2 {
+  font-size: 1.1rem;
+  color: var(--cor-principal);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--fundo-medio);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.lista-widget {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  
+  /* A MÁGICA:
+     1. flex-grow: 1 -> Diz à lista para CRESCER.
+     2. A LINHA 'max-height' foi REMOVIDA. O "freio" saiu.
+     3. overflow-y: auto -> Se a lista crescer DEMAIS, ela cria scroll.
+  */
+  flex-grow: 1; 
+  overflow-y: auto;
+}
+
+.lista-widget li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0.25rem;
+  border-bottom: 1px solid var(--fundo-medio);
+  font-size: 0.9rem;
+}
+.lista-widget li:last-child {
+  border-bottom: none;
+}
+
+.lista-widget .item-info {
+  color: var(--cor-texto-secundario);
+  font-style: italic;
+  justify-content: center;
+  /* Centraliza a mensagem "Carregando..." */
+  flex-grow: 1;
+  align-items: center;
+}
+
+/* Estilos dos itens (Receita, Despesa, Estoque) */
+.item-receita .valor {
+  color: var(--cor-sucesso);
+  font-weight: 600;
+}
+.item-despesa .valor {
+  color: var(--cor-perigo);
+  font-weight: 600;
+}
+.item-aviso .qtd {
+  color: var(--cor-aviso);
+  font-weight: 700;
+  font-size: 1rem;
+}
+.item-aviso .nome {
+  flex: 1;
+  margin-right: 1rem;
+}
+
+
+/* ===== AJUSTES RESPONSIVOS (Específicos) ===== */
+@media (max-width: 768px) {
+  /* O grid já cuida da quebra para 1 coluna */
+
+  /* Faz todos os cards terem a mesma largura no mobile */
+  .cartao--informacoes,
+  .cartao--grafico,
+  .cartao--lista {
+    width: 90%;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

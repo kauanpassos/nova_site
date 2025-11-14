@@ -1,0 +1,107 @@
+/* ===== ESTILOS ESPEFÍFICOS DE LANÇAMENTOS ===== */
+.conteudo-principal {
+    flex: 1;
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* --- Cabeçalho --- */
+.cabecalho-pagina {
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--fundo-medio);
+}
+.cabecalho-pagina h1 {
+  font-size: 1.8rem;
+  color: var(--cor-principal);
+  margin-bottom: 0.25rem;
+}
+.cabecalho-pagina p {
+  color: var(--cor-texto-secundario);
+  font-size: 0.95rem;
+}
+
+/* --- Ações do Formulário --- */
+.formulario-acoes {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+/* --- Lista de Lançamentos --- */
+.lista-lancamentos {
+    list-style: none;
+    padding: 0;
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.lista-lancamentos li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background-color: var(--fundo-medio);
+    border-radius: 0.5rem;
+    font-weight: 600;
+    animation: surgir 0.3s ease; /* Animação suave */
+}
+
+/* Animação para itens novos */
+@keyframes surgir {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.lista-lancamentos .item-info {
+    color: var(--cor-texto-secundario);
+    justify-content: center;
+    font-style: italic;
+    background: none;
+    animation: none;
+}
+
+.lista-lancamentos .item-receita {
+    border-left: 5px solid var(--cor-sucesso);
+}
+.lista-lancamentos .item-despesa {
+    border-left: 5px solid var(--cor-perigo);
+}
+
+.item-receita .valor {
+    color: var(--cor-sucesso);
+}
+.item-despesa .valor {
+    color: var(--cor-perigo);
+}
+
+
+/* --- Responsivo Específico --- */
+@media (max-width: 768px) {
+    .conteudo-principal {
+        padding: 1.5rem 1rem;
+    }
+    .formulario-acoes {
+        flex-direction: column;
+    }
+    .botao {
+        width: 100%;
+        justify-content: center;
+    }
+    .lista-lancamentos li {
+        padding: 0.75rem 1rem;
+        flex-wrap: wrap;
+    }
+}

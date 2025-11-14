@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Estoque · N.O.V.A</title>
+    
+    <link rel="stylesheet" href="../styleGLOBAL.css" />
+    <link rel="stylesheet" href="style.css" />
+
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="barra-navegacao">
+      <div class="barra-navegacao__logo">N.O.V.A</div>
+      <nav>
+        <ul class="barra-navegacao__menu">
+          <li><a href="../inicio/index.html"><i class="bx bx-home"></i><span>Início</span></a></li>
+          <li><a href="../relatorio/index.html"><i class="bx bx-bar-chart"></i><span>Relatórios</span></a></li>
+          
+          <li class="menu-suspenso item-ativo"> <button type="button" class="menu-suspenso__botao" aria-haspopup="true" aria-expanded="false">
+              <i class="bx bx-briefcase"></i>
+              <span>Trabalhos</span>
+              <i class="bx bx-chevron-down seta"></i>
+            </button>
+            <ul class="menu-suspenso__conteudo">
+              <li><a href="../meimei/index.html"><i class="bx bx-user"></i> MeiMei</a></li>
+              <li><a href="../lancamentos/index.html"><i class="bx bx-dollar-circle"></i> Lançamentos</a></li>
+              <li><a href="../area_juridica/index.html"><i class="bx bx-data"></i> Área Jurídica</a></li>
+              <li><a href="index.html" class="item-ativo-filho"><i class="bx bx-package"></i> Estoque</a></li> </ul>
+          </li>
+          <li>
+            <a href="../perfil/index.html" aria-label="Perfil do Usuário">
+              <i class="bx bx-user-circle"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="conteudo-principal">
+        <section class="cabecalho-pagina">
+            <h1>Meu Estoque</h1>
+            <p>Gerencie seus produtos, serviços e quantidades.</p>
+        </section>
+
+        <div class="acoes-estoque">
+            <button type="button" class="botao botao--principal" id="botao-novo-produto">
+                <i class='bx bx-plus'></i> Adicionar Novo Produto
+            </button>
+        </div>
+
+        <section class="cartao cartao-tabela">
+            <div class="container-tabela">
+                <table class="tabela-estoque">
+                    <thead>
+                        <tr>
+                            <th>Produto / Serviço</th>
+                            <th>Qtd.</th>
+                            <th>Preço de Venda</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lista-produtos">
+                        <tr class="item-info">
+                            <td colspan="4">Carregando estoque...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <div class="modal" id="produto-modal">
+        <div class="modal-content">
+            <h3 id="modal-titulo">Novo Produto</h3>
+            <form class="formulario-modal" id="produto-form">
+                
+                <div class="campo">
+                    <label for="produto-nome">Nome do Produto/Serviço</label>
+                    <input id="produto-nome" type="text" required>
+                </div>
+
+                <div class="campo-linha">
+                    <div class="campo">
+                        <label for="produto-qtd">Quantidade</label>
+                        <input id="produto-qtd" type="number" value="1">
+                    </div>
+                    <div class="campo">
+                        <label for="produto-preco">Preço de Venda</label>
+                        <input id="produto-preco" type="text" placeholder="R$ 0,00">
+                    </div>
+                </div>
+
+                <div class="campo">
+                    <label for="produto-desc">Descrição (Opcional)</label>
+                    <textarea id="produto-desc" rows="3"></textarea>
+                </div>
+                
+                <div class="modal-acoes">
+                    <button class="botao botao--secundario" type="button" id="cancelar-produto">Cancelar</button>
+                    <button class="botao botao--principal" type="submit">Salvar Produto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <footer class="rodape">
+      <p>
+        © 2025 N.O.V.A. Todos os direitos reservados ·
+        <a href="#">Termos</a> · <a href="#">Privacidade</a>
+      </p>
+    </footer>
+
+    <script src="../appGLOBAL.js" defer></script>
+    <script src="script.js" defer></script>
+  </body>
+</html>

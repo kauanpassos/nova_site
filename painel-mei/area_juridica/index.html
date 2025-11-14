@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Área Jurídica · N.O.V.A</title>
+    <link rel="stylesheet" href="../styleGLOBAL.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="barra-navegacao">
+      <div class="barra-navegacao__logo">N.O.V.A</div>
+      <nav>
+        <ul class="barra-navegacao__menu">
+          <li><a href="../inicio/index.html"><i class="bx bx-home"></i><span>Início</span></a></li>
+          <li><a href="../relatorio/index.html"><i class="bx bx-bar-chart"></i><span>Relatórios</span></a></li>
+          
+          <li class="menu-suspenso item-ativo"> <button type="button" class="menu-suspenso__botao" aria-haspopup="true" aria-expanded="false">
+              <i class="bx bx-briefcase"></i>
+              <span>Trabalhos</span>
+              <i class="bx bx-chevron-down seta"></i>
+            </button>
+            <ul class="menu-suspenso__conteudo">
+              <li><a href="../meimei/index.html"><i class="bx bx-user"></i> MeiMei</a></li>
+              <li><a href="../lancamentos/index.html"><i class="bx bx-dollar-circle"></i> Lançamentos</a></li>
+              <li><a href="index.html" class="item-ativo-filho"><i class="bx bx-data"></i> Área Jurídica</a></li> <li><a href="../estoque/index.html"><i class="bx bx-package"></i> Estoque</a></li> </ul>
+          </li>
+          <li>
+            <a href="../perfil/index.html" aria-label="Perfil do Usuário">
+              <i class="bx bx-user-circle"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="conteudo-principal">
+      <section class="cabecalho-pagina">
+        <h1>Área Jurídica (PJ)</h1>
+        <p>Informações da sua Pessoa Jurídica para gestão e emissão de documentos.</p>
+      </section>
+      <form class="cartao formulario-dados" id="form-dados-empresa">
+        <fieldset class="grupo-campos">
+          <legend><i class="bx bx-briefcase"></i> Informações Jurídicas</legend>
+          <div class="campo-linha">
+            <div class="campo">
+              <label for="cnpj">CNPJ</label>
+              <input type="text" id="cnpj" readonly />
+            </div>
+            <div class="campo">
+              <label for="razao-social">Razão Social</label>
+              <input type="text" id="razao-social" readonly />
+            </div>
+          </div>
+          <div class="campo-linha">
+            <div class="campo campo--completo">
+              <label for="nome-fantasia">Nome Fantasia</label>
+              <input type="text" id="nome-fantasia" />
+            </div>
+          </div>
+          <div class="campo-linha">
+            <div class="campo">
+              <label for="data-abertura">Data de Abertura</label>
+              <input type="text" id="data-abertura" readonly />
+            </div>
+            <div class="campo">
+              <label for="natureza">Natureza Jurídica</label>
+              <input type="text" id="natureza" readonly />
+            </div>
+          </div>
+        </fieldset>
+        <fieldset class="grupo-campos">
+          <legend><i class="bx bx-dollar-circle"></i> Informações Financeiras</legend>
+          <div class="campo-linha">
+            <div class="campo">
+              <label for="banco">Banco (PJ)</label>
+              <input type="text" id="banco" />
+            </div>
+            <div class="campo">
+              <label for="agencia">Agência (PJ)</label>
+              <input type="text" id="agencia" />
+            </div>
+            <div class="campo">
+              <label for="conta">Conta Corrente (PJ)</label>
+              <input type="text" id="conta" />
+            </div>
+          </div>
+        </fieldset>
+        <div class="formulario-acoes">
+          <button type="submit" class="botao botao--principal">
+            <i class="bx bx-save"></i> Salvar Alterações
+          </button>
+        </div>
+      </form>
+    </main>
+    <footer class="rodape">
+      <p>© 2025 N.O.V.A. Todos os direitos reservados · <a href="#">Termos</a> · <a href="#">Privacidade</a></p>
+    </footer>
+    <script src="../appGLOBAL.js" defer></script>
+    <script src="script.js" defer></script>
+  </body>
+</html>

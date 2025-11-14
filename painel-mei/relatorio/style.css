@@ -1,0 +1,99 @@
+/* ===== ESTILOS ESPEFÍFICOS DE RELATÓRIO ===== */
+.conteudo-principal {
+  flex: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* --- Cabeçalho e Filtros --- */
+.cabecalho-relatorio {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--fundo-medio);
+}
+
+.cabecalho-relatorio h1 {
+  font-size: 1.8rem;
+  color: var(--cor-principal);
+}
+
+.filtros {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* A classe 'filtro-select' já é global */
+
+/* --- Cartões de Resumo --- */
+.resumo-relatorio {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.cartao--resumo h2 {
+  font-size: 1rem;
+  color: var(--cor-texto-secundario);
+  margin-bottom: 0.5rem;
+  font-weight: 400;
+}
+
+.cartao--resumo .valor {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.cor-receita,
+.cor-lucro {
+  color: var(--cor-sucesso);
+}
+
+.cor-despesa {
+  color: var(--cor-perigo);
+}
+
+.detalhe-resumo {
+  font-size: 0.85rem;
+  color: var(--cor-texto-secundario);
+}
+
+/* --- Gráfico de Barras --- */
+.cartao--grafico-barra {
+  padding-bottom: 1rem;
+}
+.cartao--grafico-barra h2 {
+  font-size: 1.2rem;
+  color: var(--cor-texto);
+  margin-bottom: 1.5rem;
+}
+
+/* --- Responsivo Específico --- */
+@media (max-width: 768px) {
+  .conteudo-principal {
+    padding: 1.5rem 1rem;
+  }
+
+  .cabecalho-relatorio {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .filtros {
+    width: 100%;
+  }
+
+  .filtro-select {
+    width: 100%;
+  }
+}

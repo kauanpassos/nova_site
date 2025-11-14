@@ -1,0 +1,62 @@
+/* ===== ESTILOS ESPEFÍCOS DE DADOS ===== */
+.conteudo-principal {
+  flex: 1;
+  max-width: 900px; /* Mais estreito, focado no formulário */
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* --- Cabeçalho --- */
+.cabecalho-pagina {
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--fundo-medio);
+}
+.cabecalho-pagina h1 {
+  font-size: 1.8rem;
+  color: var(--cor-principal);
+  margin-bottom: 0.25rem;
+}
+.cabecalho-pagina p {
+  color: var(--cor-texto-secundario);
+  font-size: 0.95rem;
+}
+
+/* --- Formulário --- */
+/* O estilo base .cartao, .grupo-campos, .campo, etc, já é global */
+.formulario-dados {
+  padding: 1rem 2rem 2rem 2rem;
+}
+
+.formulario-acoes {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end; /* Alinha botões à direita */
+  margin-top: 1rem;
+}
+
+/* --- Responsivo Específico --- */
+@media (max-width: 768px) {
+  .conteudo-principal {
+    padding: 1.5rem 1rem;
+  }
+  .formulario-dados {
+    padding: 1rem;
+  }
+  .grupo-campos {
+    padding: 1rem;
+  }
+  
+  /* Botões ficam com largura total */
+  .formulario-acoes {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .botao {
+    width: 100%;
+    justify-content: center;
+  }
+}
