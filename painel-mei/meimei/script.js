@@ -1,121 +1,114 @@
 /*
  * Arquivo: script.js (da Pasta meimei)
- * Descrição: Controla a interface de chat.
- * Tarefas:
- * 1. (Menu Suspenso já está no appGLOBAL.js)
- * 2. Capturar o envio de mensagem do usuário.
- * 3. Adicionar a mensagem do usuário na tela.
- * 4. Simular uma resposta da IA (com o "gancho" da API).
+ * Descrição: Lógica de Chatbot com "Persona" de Coach.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
     
-    // 1. Encontrar os elementos
     const chatWindow = document.getElementById("chat-window");
     const chatForm = document.getElementById("chat-form");
     const messageInput = document.getElementById("message-input");
 
-    if (!chatForm || !chatWindow || !messageInput) {
-        console.error("Erro: Elementos do chat não encontrados.");
-        return;
-    }
+    // Variável para guardar o "estado" da conversa (memória curta da IA)
+    let contextoAtual = null; 
+    let dadosCalculadora = { custo: 0, lucro: 0 };
 
-    // 2. Escutador de envio do formulário
+    if (!chatForm || !chatWindow || !messageInput) return;
+
     chatForm.addEventListener("submit", (evento) => {
-        evento.preventDefault(); // Impede o recarregamento da página
+        evento.preventDefault();
+        const texto = messageInput.value.trim();
+        if (texto === "") return;
 
-        const mensagemTexto = messageInput.value.trim();
-
-        if (mensagemTexto === "") {
-            return; // Não envia mensagem vazia
-        }
-
-        // 3. Adiciona a mensagem do usuário na tela
-        adicionarMensagemNaTela('usuario', mensagemTexto);
-
-        // 4. Limpa o input
+        adicionarMensagem('usuario', texto);
         messageInput.value = "";
-
-        // 5. Simula o "digitando..." e pega a resposta da IA
-        simularRespostaIA(mensagemTexto);
+        processarRespostaIA(texto);
     });
 
-    /**
-     * Adiciona um balão de mensagem na tela.
-     * @param {'usuario' | 'ia'} remetente - Quem enviou a mensagem.
-     * @param {string} texto - O conteúdo da mensagem.
-     * @param {boolean} [digitando=false] - Se é uma mensagem de "digitando".
-     */
-    function adicionarMensagemNaTela(remetente, texto, digitando = false) {
-        const divMensagem = document.createElement('div');
-        divMensagem.classList.add('mensagem');
+    function adicionarMensagem(remetente, texto, digitando = false) {
+        const div = document.createElement('div');
+        div.classList.add('mensagem', remetente === 'usuario' ? 'mensagem-usuario' : 'mensagem-ia');
+        if (digitando) div.classList.add('digitando');
+        
+        // Aceita HTML básico (negrito, quebra de linha)
+        div.innerHTML = `<p>${texto.replace(/\n/g, '<br>')}</p>`;
+        
+        chatWindow.appendChild(div);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+        return div;
+    }
 
-        if (remetente === 'usuario') {
-            divMensagem.classList.add('mensagem-usuario');
-        } else {
-            divMensagem.classList.add('mensagem-ia');
-            if (digitando) {
-                divMensagem.classList.add('digitando');
+    function processarRespostaIA(textoUsuario) {
+        const divDigitando = adicionarMensagem('ia', 'MeiMei está digitando...', true);
+        
+        // Simula tempo de "pensar"
+        setTimeout(() => {
+            divDigitando.remove();
+            const resposta = gerarRespostaInteligente(textoUsuario);
+            adicionarMensagem('ia', resposta);
+        }, 1200);
+    }
+
+    // --- CÉREBRO DA MEIMEI (Lógica de Coach) ---
+    function gerarRespostaInteligente(texto) {
+        const t = texto.toLowerCase();
+
+        // 1. FLUXO: CALCULADORA DE PREÇO
+        if (t.includes("calcular preço") || t.includes("ajude a calcular") || contextoAtual === 'perguntando_custo') {
+            
+            // Se já estávamos falando disso e o usuário mandou um número
+            if (contextoAtual === 'perguntando_custo') {
+                const numero = parseFloat(t.replace(/[^0-9.,]/g, '').replace(',', '.'));
+                if (!isNaN(numero)) {
+                    dadosCalculadora.custo = numero;
+                    contextoAtual = 'perguntando_lucro'; // Próximo passo
+                    return "Entendido. O custo material foi de <strong>R$ " + numero.toFixed(2) + "</strong>.<br><br>Agora, quanto de lucro você quer ter? (Ex: 50%, 100% ou 'o dobro')";
+                } else {
+                    return "Não entendi o valor. Pode digitar apenas o número? (Ex: 50,00)";
+                }
             }
+
+            if (contextoAtual === 'perguntando_lucro') {
+                 // Simplesmente assumimos que ele quer 100% se ele não digitar número
+                 let margem = 100; 
+                 const numero = parseFloat(t.replace(/[^0-9]/g, ''));
+                 if (!isNaN(numero)) margem = numero;
+
+                 const precoFinal = dadosCalculadora.custo * (1 + (margem / 100));
+                 contextoAtual = null; // Fim do fluxo
+                 
+                 return `🧮 <strong>Cálculo Pronto!</strong><br>
+                 Para ter ${margem}% de lucro sobre o custo de R$ ${dadosCalculadora.custo.toFixed(2)}, você deve vender por:<br><br>
+                 <span style="font-size: 1.2rem; color: #ffd700; font-weight: bold;">R$ ${precoFinal.toFixed(2)}</span><br><br>
+                 Dica de Coach: Se o mercado cobrar mais caro, você pode aumentar esse preço e lucrar mais!`;
+            }
+
+            // Início do fluxo
+            contextoAtual = 'perguntando_custo';
+            return "Adoro falar de números! 🤓 Para eu calcular o preço ideal, me diga primeiro: <br><strong>Qual foi o custo total dos materiais</strong> para fazer esse produto/serviço?";
         }
 
-        divMensagem.innerHTML = `<p>${texto}</p>`;
-        chatWindow.appendChild(divMensagem);
+        // 2. DICAS DE MARKETING
+        if (t.includes("marketing") || t.includes("instagram") || t.includes("post")) {
+            const dicas = [
+                "📸 <strong>Ideia de Post:</strong> Tire uma foto dos bastidores! Mostre você trabalhando. Clientes amam ver o processo.",
+                "🎥 <strong>Dica de Vídeo:</strong> Faça um vídeo curto respondendo a dúvida mais comum dos seus clientes.",
+                "💬 <strong>Engajamento:</strong> Poste uma enquete nos stories: 'Qual cor vocês preferem para o próximo produto?'"
+            ];
+            return dicas[Math.floor(Math.random() * dicas.length)];
+        }
 
-        // Rola a janela para o final (para ver a última msg)
-        chatWindow.scrollTop = chatWindow.scrollHeight;
-        
-        return divMensagem; // Retorna o elemento criado (útil para o "digitando")
+        // 3. COBRANÇA
+        if (t.includes("cobrar") || t.includes("caloteiro") || t.includes("deve")) {
+            return "Cobrar é delicado, mas necessário. Tente mandar assim:<br><br><em>'Olá [Nome]! Tudo bem? Estou fechando o caixa do mês e vi que seu pagamento ficou pendente. Consegue fazer o Pix hoje para eu dar baixa aqui? Obrigado!'</em><br><br>É educado, mas firme.";
+        }
+
+        // 4. SAUDAÇÕES
+        if (t.includes("olá") || t.includes("oi") || t.includes("tudo bem")) {
+            return "Olá! Sou sua mentora de negócios. Estou pronta para ajudar você a ganhar mais dinheiro hoje. Vamos calcular um preço ou planejar um post?";
+        }
+
+        // PADRÃO
+        return "Interessante! Como sou um protótipo, ainda estou aprendendo sobre isso. Mas tente clicar nos botões acima para ver o que eu já sei fazer!";
     }
-
-    // Função que simula a IA respondendo
-    function simularRespostaIA(mensagemUsuario) {
-        // Adiciona o balão "digitando..."
-        const divDigitando = adicionarMensagemNaTela('ia', 'MeiMei está digitando...', true);
-
-        // ==========================================================
-        // AQUI CONECTA À API DA IA (ex: Gemini, OpenAI, etc.)
-        // 
-        // ex: fetch('/api/meimei/chat', { 
-        //       method: 'POST', 
-        //       headers: { 'Content-Type': 'application/json' },
-        //       body: JSON.stringify({ prompt: mensagemUsuario }) 
-        //    })
-        //    .then(response => response.json())
-        //    .then(data => {
-        //        const respostaIA = data.resposta;
-        //        divDigitando.remove(); // Remove o "digitando..."
-        //        adicionarMensagemNaTela('ia', respostaIA);
-        //    })
-        //    .catch(err => {
-        //        divDigitando.remove();
-        //        adicionarMensagemNaTela('ia', 'Desculpe, estou com problemas para conectar. Tente novamente.');
-        //    });
-        // ==========================================================
-
-        // ----- SIMULAÇÃO (Enquanto a API não vem) -----
-        // Finge que a IA "pensa" por 1.5 segundos
-        setTimeout(() => {
-            divDigitando.remove(); // Remove o "digitando..."
-            
-            // Resposta "fake" baseada no que o usuário disse
-            let respostaSimulada = "Entendido. Você disse: '" + mensagemUsuario + "'. Como protótipo, ainda não posso processar isso, mas estarei pronta em breve!";
-            
-            if (mensagemUsuario.toLowerCase().includes("olá") || mensagemUsuario.toLowerCase().includes("oi")) {
-                respostaSimulada = "Olá! Como posso ajudar nos seus negócios hoje?";
-            }
-            if (mensagemUsuario.toLowerCase().includes("lucro")) {
-                respostaSimulada = "Ótima pergunta! Para analisar seu lucro, por favor, vá para a página de 'Relatórios'. Os dados de lá são calculados com base nos seus 'Lançamentos'.";
-            }
-            if (mensagemUsuario.toLowerCase().includes("quem é você")) {
-                respostaSimulada = "Eu sou a MeiMei, uma inteligência artificial criada para ser sua assistente pessoal de negócios. Estou aqui para te ajudar a organizar suas finanças e crescer!";
-            }
-
-            adicionarMensagemNaTela('ia', respostaSimulada);
-
-        }, 1500);
-        // ----- FIM DA SIMULAÇÃO -----
-    }
-
-    console.log("Script da MeiMei (meimei/script.js) carregado!");
 });

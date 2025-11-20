@@ -1,7 +1,7 @@
 /* ===== ESTILOS ESPECÍFICOS DO CHAT (MeiMei) ===== */
 
 .conteudo-principal-chat {
-  flex: 1; /* Ocupa todo o espaço disponível */
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,17 +11,17 @@
 .chat-container {
   width: 100%;
   max-width: 800px;
-  height: 70vh; /* 70% da altura da tela */
+  height: 75vh; /* Altura otimizada */
   min-height: 500px;
   background-color: var(--fundo-claro);
   border-radius: 1rem;
   box-shadow: 0 8px 20px var(--cor-sombra-media);
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* Garante que os cantos arredondados funcionem */
+  overflow: hidden;
 }
 
-/* --- Cabeçalho do Chat --- */
+/* --- Cabeçalho --- */
 .chat-header {
   background-color: var(--fundo-medio);
   padding: 1rem 1.5rem;
@@ -33,91 +33,133 @@
 
 .chat-header h2 {
   color: var(--cor-principal);
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
+.cargo-ia {
+    font-size: 0.8rem;
+    color: var(--cor-texto-secundario);
+    font-weight: 400;
+    margin-left: 0.5rem;
+}
+
 .status-online {
   color: var(--cor-sucesso);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
 }
 .status-online::before {
   content: '●';
-  margin-right: 0.4rem;
+  margin-right: 0.3rem;
 }
 
 /* --- Janela de Mensagens --- */
 .chat-window {
-  flex: 1; /* Ocupa todo o espaço do container */
+  flex: 1;
   padding: 1.5rem;
-  overflow-y: auto; /* A MÁGICA: Habilita a rolagem */
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  background-color: #252525; /* Fundo levemente diferente para contraste */
 }
 
-/* Estilo base de cada balão de mensagem */
 .mensagem {
-  max-width: 75%;
+  max-width: 80%;
   padding: 0.8rem 1.2rem;
   border-radius: 1.2rem;
   line-height: 1.5;
-  word-wrap: break-word; /* Quebra palavras longas */
+  word-wrap: break-word;
   animation: surgir 0.3s ease;
+  font-size: 0.95rem;
 }
 
-/* Animação para mensagens novas */
 @keyframes surgir {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-
-/* Mensagem da IA (esquerda) */
 .mensagem-ia {
   background-color: var(--fundo-medio);
   color: var(--cor-texto);
-  border-bottom-left-radius: 0.2rem; /* Aquele "charme" de chat */
-  align-self: flex-start; /* Alinha à esquerda */
+  border-bottom-left-radius: 0.2rem;
+  align-self: flex-start;
+  border: 1px solid #444;
 }
 
-/* Mensagem do Usuário (direita) */
 .mensagem-usuario {
   background-color: var(--cor-principal);
   color: var(--fundo-escuro);
   font-weight: 600;
   border-bottom-right-radius: 0.2rem;
-  align-self: flex-end; /* Alinha à direita */
+  align-self: flex-end;
 }
 
-/* Para simular "digitando..." */
 .mensagem-ia.digitando {
   color: var(--cor-texto-secundario);
   font-style: italic;
+  border: none;
+  background: none;
+  padding-left: 0;
 }
 
+/* --- Área Inferior (Chips + Input) --- */
+.area-inferior {
+    background-color: var(--fundo-medio);
+    border-top: 1px solid var(--fundo-escuro);
+    display: flex;
+    flex-direction: column;
+}
 
-/* --- Área de Digitação --- */
+/* Estilo dos Chips (Balõezinhos) */
+.sugestoes-chips {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.8rem 1rem 0.2rem 1rem;
+    overflow-x: auto; /* Permite rolar lateralmente */
+    white-space: nowrap;
+    
+    /* CORREÇÃO DE COMPATIBILIDADE (Chrome, Safari, Firefox) */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE e Edge antigo */
+}
+
+/* Oculta a barra no Webkit (Chrome/Safari/Edge novo) */
+.sugestoes-chips::-webkit-scrollbar { 
+    display: none; 
+}
+
+.chip {
+    background-color: var(--fundo-escuro);
+    color: var(--cor-texto);
+    border: 1px solid #444;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Sora', sans-serif;
+}
+
+.chip:hover {
+    border-color: var(--cor-principal);
+    color: var(--cor-principal);
+    transform: translateY(-2px);
+}
+
+/* Input Area */
 .chat-input-area {
   display: flex;
-  padding: 1rem;
-  background-color: var(--fundo-medio);
-  border-top: 1px solid var(--fundo-escuro);
+  padding: 0.8rem 1rem 1rem 1rem;
 }
 
 #message-input {
-  flex: 1; /* Ocupa o espaço */
+  flex: 1;
   background-color: var(--fundo-escuro);
-  border: 1px solid var(--fundo-medio);
+  border: 1px solid #444;
   color: var(--cor-texto);
   padding: 0.8rem 1rem;
   border-radius: 0.5rem;
@@ -139,30 +181,22 @@
   border: none;
   cursor: pointer;
   transition: opacity 0.3s;
-  font-size: 1.5rem; /* Tamanho do ícone */
+  font-size: 1.5rem;
 }
 .botao-enviar:hover {
   opacity: 0.9;
 }
 
-
-/* --- Responsivo Específico --- */
+/* --- Responsivo --- */
 @media (max-width: 768px) {
   .conteudo-principal-chat {
-    padding: 0.5rem;
-    /* Faz o chat ocupar a tela inteira, menos o header */
-    height: calc(100vh - 60px); /* 60px é a altura aprox. do header */
     padding: 0;
+    height: calc(100vh - 60px); /* Ajusta altura para mobile */
   }
   .chat-container {
-    height: 100%; /* Ocupa 100% do main */
+    height: 100%;
     max-width: 100%;
-    min-height: 0;
     border-radius: 0;
-    box-shadow: none;
-  }
-  .chat-window {
-    padding: 1rem;
   }
   .mensagem {
     max-width: 85%;
