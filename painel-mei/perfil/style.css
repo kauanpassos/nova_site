@@ -1,12 +1,9 @@
-/* ESTILOS ESPECÍFICOS DO PERFIL */
 /*
-  Nota: Este CSS usa suas próprias variáveis (ex: --bg, --card)
-  e a fonte 'Poppins'. Ele *ignora* as variáveis do styleGLOBAL.css.
-  Isso funciona, mas deixa esta página com um visual ligeiramente
-  diferente do resto do site (que usa a fonte 'Sora').
-  No futuro, poderíamos unificar isso.
-*/
+ * Arquivo: style.css (da Pasta perfil)
+ * DESCRIÇÃO: Estilos exclusivos do Perfil (Tema Dark Diferenciado).
+ */
 
+/* <----- Inicio das Variáveis Locais -----> */
 :root {
   --bg: #0f0f0f;
   --card: #1a1a1a;
@@ -15,7 +12,10 @@
   --panel: #222;
   --dark-panel: #2f3136;
 }
+/* <-----aqui termina as Variáveis Locais-----> */
 
+
+/* <----- Inicio da Estrutura Principal -----> */
 .conteudo-principal-perfil {
   flex: 1;
   display: flex;
@@ -34,6 +34,10 @@
   box-shadow: 0 6px 30px rgba(255, 215, 0, 0.08);
   position: relative;
 }
+/* <-----aqui termina a Estrutura Principal-----> */
+
+
+/* <----- Inicio da Foto de Perfil -----> */
 .profile-photo {
   width: 120px;
   height: 120px;
@@ -45,13 +49,12 @@
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
 }
 
-/* CORREÇÃO DE LABEL: Faz o label preencher a foto e ser clicável */
 .profile-photo label {
   display: block;
   width: 100%;
   height: 100%;
   cursor: pointer;
-  position: relative; /* Para o photo-upload funcionar */
+  position: relative; 
 }
 
 .profile-photo img {
@@ -60,6 +63,7 @@
   object-fit: cover;
   display: block;
 }
+
 .photo-upload {
   position: absolute;
   bottom: 0;
@@ -72,9 +76,18 @@
   display: none;
   color: var(--accent);
 }
+
 .profile-photo:hover .photo-upload {
   display: block;
 }
+
+#photoInput {
+  display: none;
+}
+/* <-----aqui termina a Foto de Perfil-----> */
+
+
+/* <----- Inicio dos Detalhes de Texto -----> */
 .profile-container h2 {
   text-align: center;
   margin: 12px 0 6px;
@@ -103,6 +116,10 @@
   color: var(--muted);
   line-height: 1.4;
 }
+/* <-----aqui termina os Detalhes de Texto-----> */
+
+
+/* <----- Inicio dos Botões e Modal -----> */
 .edit-btn {
   display: block;
   width: 100%;
@@ -122,6 +139,7 @@
   transform: translateY(-2px);
   filter: brightness(1.05);
 }
+
 .modal {
   position: fixed;
   top: 0;
@@ -147,15 +165,10 @@
   animation: fadeIn .4s ease;
 }
 @keyframes fadeIn {
-  from {
-    transform: translateY(-10px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  from { transform: translateY(-10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
+
 .edit-form label {
   display: block;
   font-size: 13px;
@@ -173,9 +186,8 @@
   color: #fff;
   resize: vertical;
 }
-.save-btn,
-.cancel-btn,
-.reset-btn {
+
+.save-btn, .cancel-btn, .reset-btn {
   margin-top: 12px;
   width: 100%;
   padding: 11px;
@@ -184,19 +196,10 @@
   font-weight: 700;
   cursor: pointer;
 }
-.save-btn {
-  background: var(--accent);
-  color: #000;
-}
-.cancel-btn {
-  background: #444;
-  color: #fff;
-}
-.reset-btn {
-  background: #222;
-  color: #fff;
-  margin-top: 8px;
-}
+.save-btn { background: var(--accent); color: #000; }
+.cancel-btn { background: #444; color: #fff; }
+.reset-btn { background: #222; color: #fff; margin-top: 8px; }
+
 .notification {
   position: fixed;
   bottom: 20px;
@@ -211,18 +214,15 @@
   transition: opacity .4s ease;
   z-index: 1000;
 }
-.notification.show {
-  opacity: 1;
-}
+.notification.show { opacity: 1; }
+/* <-----aqui termina os Botões e Modal-----> */
 
-/* CORREÇÃO DE CSS INLINE: Esconde o input */
-#photoInput {
-  display: none;
-}
 
+/* <----- Inicio da Responsividade -----> */
 @media (max-width: 460px) {
   .profile-container {
     width: 100%;
     padding: 20px;
   }
 }
+/* <-----aqui termina a Responsividade-----> */

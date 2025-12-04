@@ -5,16 +5,20 @@
 
 document.addEventListener("DOMContentLoaded", () => {
     
+    /* <----- Inicio da Inicialização de Variáveis -----> */
     const chatWindow = document.getElementById("chat-window");
     const chatForm = document.getElementById("chat-form");
     const messageInput = document.getElementById("message-input");
 
-    // Variável para guardar o "estado" da conversa (memória curta da IA)
+    // Memória de curto prazo da IA
     let contextoAtual = null; 
     let dadosCalculadora = { custo: 0, lucro: 0 };
+    /* <-----aqui termina a Inicialização de Variáveis-----> */
+
 
     if (!chatForm || !chatWindow || !messageInput) return;
 
+    /* <----- Inicio do Listener de Envio -----> */
     chatForm.addEventListener("submit", (evento) => {
         evento.preventDefault();
         const texto = messageInput.value.trim();
@@ -24,13 +28,15 @@ document.addEventListener("DOMContentLoaded", () => {
         messageInput.value = "";
         processarRespostaIA(texto);
     });
+    /* <-----aqui termina o Listener de Envio-----> */
 
+
+    /* <----- Inicio das Funções de Mensagem (Visual) -----> */
     function adicionarMensagem(remetente, texto, digitando = false) {
         const div = document.createElement('div');
         div.classList.add('mensagem', remetente === 'usuario' ? 'mensagem-usuario' : 'mensagem-ia');
         if (digitando) div.classList.add('digitando');
         
-        // Aceita HTML básico (negrito, quebra de linha)
         div.innerHTML = `<p>${texto.replace(/\n/g, '<br>')}</p>`;
         
         chatWindow.appendChild(div);
@@ -41,27 +47,27 @@ document.addEventListener("DOMContentLoaded", () => {
     function processarRespostaIA(textoUsuario) {
         const divDigitando = adicionarMensagem('ia', 'MeiMei está digitando...', true);
         
-        // Simula tempo de "pensar"
         setTimeout(() => {
             divDigitando.remove();
             const resposta = gerarRespostaInteligente(textoUsuario);
             adicionarMensagem('ia', resposta);
         }, 1200);
     }
+    /* <-----aqui termina as Funções de Mensagem-----> */
 
-    // --- CÉREBRO DA MEIMEI (Lógica de Coach) ---
+
+    /* <----- Inicio do Cérebro da MeiMei (Lógica de Respostas) -----> */
     function gerarRespostaInteligente(texto) {
         const t = texto.toLowerCase();
 
         // 1. FLUXO: CALCULADORA DE PREÇO
         if (t.includes("calcular preço") || t.includes("ajude a calcular") || contextoAtual === 'perguntando_custo') {
             
-            // Se já estávamos falando disso e o usuário mandou um número
             if (contextoAtual === 'perguntando_custo') {
                 const numero = parseFloat(t.replace(/[^0-9.,]/g, '').replace(',', '.'));
                 if (!isNaN(numero)) {
                     dadosCalculadora.custo = numero;
-                    contextoAtual = 'perguntando_lucro'; // Próximo passo
+                    contextoAtual = 'perguntando_lucro'; 
                     return "Entendido. O custo material foi de <strong>R$ " + numero.toFixed(2) + "</strong>.<br><br>Agora, quanto de lucro você quer ter? (Ex: 50%, 100% ou 'o dobro')";
                 } else {
                     return "Não entendi o valor. Pode digitar apenas o número? (Ex: 50,00)";
@@ -69,7 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             if (contextoAtual === 'perguntando_lucro') {
-                 // Simplesmente assumimos que ele quer 100% se ele não digitar número
                  let margem = 100; 
                  const numero = parseFloat(t.replace(/[^0-9]/g, ''));
                  if (!isNaN(numero)) margem = numero;
@@ -83,7 +88,6 @@ document.addEventListener("DOMContentLoaded", () => {
                  Dica de Coach: Se o mercado cobrar mais caro, você pode aumentar esse preço e lucrar mais!`;
             }
 
-            // Início do fluxo
             contextoAtual = 'perguntando_custo';
             return "Adoro falar de números! 🤓 Para eu calcular o preço ideal, me diga primeiro: <br><strong>Qual foi o custo total dos materiais</strong> para fazer esse produto/serviço?";
         }
@@ -108,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return "Olá! Sou sua mentora de negócios. Estou pronta para ajudar você a ganhar mais dinheiro hoje. Vamos calcular um preço ou planejar um post?";
         }
 
-        // PADRÃO
         return "Interessante! Como sou um protótipo, ainda estou aprendendo sobre isso. Mas tente clicar nos botões acima para ver o que eu já sei fazer!";
     }
+    /* <-----aqui termina o Cérebro da MeiMei-----> */
 });

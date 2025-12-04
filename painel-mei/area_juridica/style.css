@@ -1,7 +1,12 @@
-/* ===== ESTILOS ESPEFÍCOS DE DADOS ===== */
+/*
+ * Arquivo: style.css (da Pasta area_juridica)
+ * DESCRIÇÃO: Estilos do formulário de dados da empresa.
+ */
+
+/* <----- Inicio da Estrutura Principal -----> */
 .conteudo-principal {
   flex: 1;
-  max-width: 900px; /* Mais estreito, focado no formulário */
+  max-width: 900px;
   width: 100%;
   margin: 0 auto;
   padding: 2rem;
@@ -9,8 +14,10 @@
   flex-direction: column;
   gap: 2rem;
 }
+/* <-----aqui termina a Estrutura Principal-----> */
 
-/* --- Cabeçalho --- */
+
+/* <----- Inicio do Cabeçalho -----> */
 .cabecalho-pagina {
   padding-bottom: 1.5rem;
   border-bottom: 1px solid var(--fundo-medio);
@@ -24,9 +31,10 @@
   color: var(--cor-texto-secundario);
   font-size: 0.95rem;
 }
+/* <-----aqui termina o Cabeçalho-----> */
 
-/* --- Formulário --- */
-/* O estilo base .cartao, .grupo-campos, .campo, etc, já é global */
+
+/* <----- Inicio do Formulário Específico -----> */
 .formulario-dados {
   padding: 1rem 2rem 2rem 2rem;
 }
@@ -34,11 +42,13 @@
 .formulario-acoes {
   display: flex;
   gap: 1rem;
-  justify-content: flex-end; /* Alinha botões à direita */
+  justify-content: flex-end;
   margin-top: 1rem;
 }
+/* <-----aqui termina o Formulário Específico-----> */
 
-/* --- Responsivo Específico --- */
+
+/* <----- Inicio da Responsividade -----> */
 @media (max-width: 768px) {
   .conteudo-principal {
     padding: 1.5rem 1rem;
@@ -50,7 +60,6 @@
     padding: 1rem;
   }
   
-  /* Botões ficam com largura total */
   .formulario-acoes {
     flex-direction: column;
     gap: 0.5rem;
@@ -60,3 +69,4 @@
     justify-content: center;
   }
 }
+/* <-----aqui termina a Responsividade-----> */

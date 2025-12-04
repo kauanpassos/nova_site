@@ -1,204 +1,183 @@
-/* ===== ESTILOS ESPECÍFICOS DO CHAT (MeiMei) ===== */
+/*
+ * Arquivo: style.css (da Pasta meimei)
+ * DESCRIÇÃO: Estilos do Chatbot (MeiMei).
+ */
 
+/* <----- Inicio do Container do Chat -----> */
 .conteudo-principal-chat {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem 1rem;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    height: calc(100vh - 80px); /* Ajuste para caber na tela sem rolar a página inteira */
 }
 
 .chat-container {
-  width: 100%;
-  max-width: 800px;
-  height: 75vh; /* Altura otimizada */
-  min-height: 500px;
-  background-color: var(--fundo-claro);
-  border-radius: 1rem;
-  box-shadow: 0 8px 20px var(--cor-sombra-media);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+    width: 100%;
+    max-width: 600px;
+    background-color: var(--fundo-claro);
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 5px 20px var(--cor-sombra-escura);
+    overflow: hidden;
 }
+/* <-----aqui termina o Container do Chat-----> */
 
-/* --- Cabeçalho --- */
+
+/* <----- Inicio do Cabeçalho do Chat -----> */
 .chat-header {
-  background-color: var(--fundo-medio);
-  padding: 1rem 1.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--fundo-escuro);
+    padding: 1rem 1.5rem;
+    background-color: var(--fundo-medio);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
 .chat-header h2 {
-  color: var(--cor-principal);
-  font-size: 1.1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+    font-size: 1.1rem;
+    color: var(--cor-principal);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .cargo-ia {
     font-size: 0.8rem;
     color: var(--cor-texto-secundario);
     font-weight: 400;
-    margin-left: 0.5rem;
 }
 
 .status-online {
-  color: var(--cor-sucesso);
-  font-size: 0.75rem;
-  font-weight: 600;
+    font-size: 0.75rem;
+    color: var(--cor-sucesso);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
 }
 .status-online::before {
-  content: '●';
-  margin-right: 0.3rem;
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    background-color: var(--cor-sucesso);
+    border-radius: 50%;
 }
+/* <-----aqui termina o Cabeçalho do Chat-----> */
 
-/* --- Janela de Mensagens --- */
+
+/* <----- Inicio da Janela de Mensagens -----> */
 .chat-window {
-  flex: 1;
-  padding: 1.5rem;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  background-color: #252525; /* Fundo levemente diferente para contraste */
+    flex: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .mensagem {
-  max-width: 80%;
-  padding: 0.8rem 1.2rem;
-  border-radius: 1.2rem;
-  line-height: 1.5;
-  word-wrap: break-word;
-  animation: surgir 0.3s ease;
-  font-size: 0.95rem;
-}
-
-@keyframes surgir {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+    max-width: 80%;
+    padding: 0.8rem 1rem;
+    border-radius: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    animation: slideIn 0.3s ease;
 }
 
 .mensagem-ia {
-  background-color: var(--fundo-medio);
-  color: var(--cor-texto);
-  border-bottom-left-radius: 0.2rem;
-  align-self: flex-start;
-  border: 1px solid #444;
+    background-color: var(--fundo-medio);
+    color: var(--cor-texto);
+    align-self: flex-start;
+    border-bottom-left-radius: 0.2rem;
 }
 
 .mensagem-usuario {
-  background-color: var(--cor-principal);
-  color: var(--fundo-escuro);
-  font-weight: 600;
-  border-bottom-right-radius: 0.2rem;
-  align-self: flex-end;
+    background-color: var(--cor-principal);
+    color: var(--fundo-escuro);
+    align-self: flex-end;
+    border-bottom-right-radius: 0.2rem;
+    font-weight: 600;
 }
 
-.mensagem-ia.digitando {
-  color: var(--cor-texto-secundario);
-  font-style: italic;
-  border: none;
-  background: none;
-  padding-left: 0;
+.digitando {
+    font-style: italic;
+    opacity: 0.7;
 }
 
-/* --- Área Inferior (Chips + Input) --- */
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* <-----aqui termina a Janela de Mensagens-----> */
+
+
+/* <----- Inicio da Área Inferior (Sugestões e Input) -----> */
 .area-inferior {
-    background-color: var(--fundo-medio);
-    border-top: 1px solid var(--fundo-escuro);
-    display: flex;
-    flex-direction: column;
+    padding: 1rem;
+    background-color: var(--fundo-claro);
+    border-top: 1px solid var(--fundo-medio);
 }
 
-/* Estilo dos Chips (Balõezinhos) */
 .sugestoes-chips {
     display: flex;
     gap: 0.5rem;
-    padding: 0.8rem 1rem 0.2rem 1rem;
-    overflow-x: auto; /* Permite rolar lateralmente */
-    white-space: nowrap;
-    
-    /* CORREÇÃO DE COMPATIBILIDADE (Chrome, Safari, Firefox) */
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE e Edge antigo */
-}
-
-/* Oculta a barra no Webkit (Chrome/Safari/Edge novo) */
-.sugestoes-chips::-webkit-scrollbar { 
-    display: none; 
+    margin-bottom: 1rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
 }
 
 .chip {
-    background-color: var(--fundo-escuro);
+    background-color: var(--fundo-medio);
+    border: 1px solid rgba(255,255,255,0.1);
     color: var(--cor-texto);
-    border: 1px solid #444;
     padding: 0.4rem 0.8rem;
-    border-radius: 20px;
-    font-size: 0.85rem;
+    border-radius: 2rem;
+    font-size: 0.8rem;
     cursor: pointer;
-    transition: all 0.2s;
-    font-family: 'Sora', sans-serif;
+    white-space: nowrap;
+    transition: background 0.2s;
 }
 
 .chip:hover {
+    background-color: var(--fundo-escuro);
     border-color: var(--cor-principal);
-    color: var(--cor-principal);
-    transform: translateY(-2px);
 }
 
-/* Input Area */
 .chat-input-area {
-  display: flex;
-  padding: 0.8rem 1rem 1rem 1rem;
+    display: flex;
+    gap: 0.5rem;
 }
 
-#message-input {
-  flex: 1;
-  background-color: var(--fundo-escuro);
-  border: 1px solid #444;
-  color: var(--cor-texto);
-  padding: 0.8rem 1rem;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  font-family: "Sora", sans-serif;
-  margin-right: 0.5rem;
-  transition: border-color 0.3s;
+.chat-input-area input {
+    flex: 1;
+    background-color: var(--fundo-medio);
+    border: none;
+    padding: 0.8rem 1rem;
+    border-radius: 2rem;
+    color: var(--cor-texto);
+    font-family: inherit;
 }
-#message-input:focus {
-  border-color: var(--cor-principal);
-  outline: none;
+.chat-input-area input:focus {
+    outline: 2px solid var(--cor-principal);
 }
 
 .botao-enviar {
-  padding: 0.8rem 1rem;
-  border-radius: 0.5rem;
-  background-color: var(--cor-principal);
-  color: var(--fundo-escuro);
-  border: none;
-  cursor: pointer;
-  transition: opacity 0.3s;
-  font-size: 1.5rem;
+    background-color: var(--cor-principal);
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    color: var(--fundo-escuro);
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
 }
 .botao-enviar:hover {
-  opacity: 0.9;
+    transform: scale(1.1);
 }
-
-/* --- Responsivo --- */
-@media (max-width: 768px) {
-  .conteudo-principal-chat {
-    padding: 0;
-    height: calc(100vh - 60px); /* Ajusta altura para mobile */
-  }
-  .chat-container {
-    height: 100%;
-    max-width: 100%;
-    border-radius: 0;
-  }
-  .mensagem {
-    max-width: 85%;
-  }
-}
+/* <-----aqui termina a Área Inferior-----> */

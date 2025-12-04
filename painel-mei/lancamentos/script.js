@@ -1,126 +1,167 @@
 /*
  * Arquivo: script.js (da Pasta lancamentos)
- * DESCRIÇÃO: Controla o CRUD de lançamentos com LOCALSTORAGE.
+ * DESCRIÇÃO: CRUD Completo.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
     
+    /* <----- Inicio da captura de elementos do DOM -----> */
     const formulario = document.getElementById("form-lancamento");
     const listaLancamentos = document.getElementById("lista-lancamentos");
+    const inputTipo = document.getElementById("tipo");
     const inputValor = document.getElementById("valor");
     const inputData = document.getElementById("data");
+    const inputDescricao = document.getElementById("descricao");
+    const botaoSalvar = formulario.querySelector("button[type='submit']");
+    /* <-----aqui termina a captura de elementos do DOM-----> */
 
-    if (!formulario || !listaLancamentos) return;
 
-    // --- NOSSO "MINI-BANCO DE DADOS" LOCAL ---
+    /* <----- Inicio do controle de estado (Mini Banco de Dados) -----> */
     const storageKey = 'nova_lancamentos_v1';
+    let idEmEdicao = null; 
 
     function loadLancamentos() {
         try {
             const dados = localStorage.getItem(storageKey);
             return dados ? JSON.parse(dados) : [];
-        } catch (e) {
-            console.error("Erro ao carregar lançamentos:", e);
-            return [];
-        }
+        } catch (e) { return []; }
     }
 
     function saveLancamentos(lancamentos) {
-        try {
-            localStorage.setItem(storageKey, JSON.stringify(lancamentos));
-        } catch (e) {
-            console.error("Erro ao salvar lançamentos:", e);
-        }
+        localStorage.setItem(storageKey, JSON.stringify(lancamentos));
     }
-    // --- FIM DO "MINI-BANCO DE DADOS" ---
+    /* <-----aqui termina o controle de estado-----> */
 
 
-    // --- TAREFA 1: Formatar data de hoje ---
-    try {
-      inputData.valueAsDate = new Date();
-    } catch (e) {
-      console.warn("Não foi possível definir a data padrão.", e);
-    }
-
-
-    // --- TAREFA 2: Adicionar Lançamento (AGORA É DE VERDADE) ---
-    formulario.addEventListener("submit", (evento) => {
-        evento.preventDefault(); 
+    /* <----- Inicio das Funções de Renderização (Visual) -----> */
+    function renderizarLista() {
+        const lancamentos = loadLancamentos();
         
-        const dadosDoForm = {
-            id: Date.now(), // ID único
-            tipo: document.getElementById("tipo").value,
-            valor: parseFloat(inputValor.value.replace("R$", "").replace(/\./g, "").replace(",", ".")),
+        listaLancamentos.innerHTML = "";
+
+        if (lancamentos.length === 0) {
+            listaLancamentos.innerHTML = `
+                <li class="item-info">Nenhum lançamento ainda.</li>
+            `;
+            return;
+        }
+
+        const listaInvertida = [...lancamentos].reverse();
+
+        listaInvertida.forEach(item => {
+            const li = document.createElement('li');
+            const eReceita = item.tipo === 'receita';
+            
+            li.className = eReceita ? 'item-receita' : 'item-despesa';
+
+            const valorFormatado = item.valor.toLocaleString("pt-BR", { style: 'currency', currency: 'BRL' });
+            const sinal = eReceita ? '+' : '-';
+            const dataFormatada = new Date(item.data).toLocaleDateString('pt-BR', {timeZone: 'UTC'});
+
+            li.innerHTML = `
+                <div class="conteudo-li">
+                    <div class="info-texto">
+                        <span style="display:block; font-weight:bold;">${item.descricao}</span>
+                        <span style="font-size: 0.8rem; color: #888;">${dataFormatada}</span>
+                    </div>
+                    <span class="valor">${sinal} ${valorFormatado}</span>
+                </div>
+                
+                <div class="acoes-item">
+                    <button class="botao-acao btn-editar" onclick="iniciarEdicao(${item.id})" title="Editar">
+                        <i class='bx bx-pencil'></i>
+                    </button>
+                    <button class="botao-acao btn-excluir" onclick="deletarLancamento(${item.id})" title="Excluir">
+                        <i class='bx bx-trash'></i>
+                    </button>
+                </div>
+            `;
+
+            listaLancamentos.appendChild(li);
+        });
+    }
+    /* <-----aqui termina as Funções de Renderização-----> */
+
+
+    /* <----- Inicio das Funções Lógicas (CRUD) -----> */
+    formulario.addEventListener("submit", (evento) => {
+        evento.preventDefault();
+
+        let valorLimpo = inputValor.value.replace("R$", "").replace(/\./g, "").replace(",", ".");
+        
+        const dadosFormulario = {
+            id: idEmEdicao || Date.now(),
+            tipo: inputTipo.value,
+            valor: parseFloat(valorLimpo),
             data: inputData.value,
-            descricao: document.getElementById("descricao").value || "Sem descrição",
+            descricao: inputDescricao.value || "Sem descrição"
         };
 
-        if (!dadosDoForm.valor || isNaN(dadosDoForm.valor)) {
+        if (isNaN(dadosFormulario.valor) || dadosFormulario.valor <= 0) {
             alert("Por favor, insira um valor válido.");
             return;
         }
 
-        const lancamentosAtuais = loadLancamentos();
-        lancamentosAtuais.push(dadosDoForm);
-        saveLancamentos(lancamentosAtuais);
-        
-        console.log("Salvo no localStorage!", dadosDoForm);
-        
-        adicionarItemNaLista(dadosDoForm, true); // Adiciona no topo da lista visual
-        
-        formulario.reset();
-        try {
-          inputData.valueAsDate = new Date(); // Recoloca a data
-        } catch (e) {}
+        let listaAtual = loadLancamentos();
+
+        if (idEmEdicao) {
+            const index = listaAtual.findIndex(item => item.id === idEmEdicao);
+            if (index !== -1) {
+                listaAtual[index] = dadosFormulario;
+            }
+            alert("Lançamento atualizado com sucesso!");
+        } else {
+            listaAtual.push(dadosFormulario);
+        }
+
+        saveLancamentos(listaAtual);
+        renderizarLista();
+        resetarFormulario();
     });
 
-    // --- TAREFA 3: Carregar Lançamentos Iniciais (AGORA É DE VERDADE) ---
-    function carregarLancamentosIniciais() {
-        console.log("Buscando dados do localStorage...");
-        
-        const lancamentosSalvos = loadLancamentos();
-        
-        listaLancamentos.innerHTML = ""; // Limpa o "Carregando..."
-        
-        if (lancamentosSalvos.length === 0) {
-            listaLancamentos.innerHTML = "<li class'item-info'>Nenhum lançamento ainda.</li>";
-        } else {
-            // Inverte para mostrar os mais novos primeiro
-            lancamentosSalvos.reverse().forEach(item => {
-                adicionarItemNaLista(item, false);
-            });
+    window.iniciarEdicao = function(id) {
+        const listaAtual = loadLancamentos();
+        const item = listaAtual.find(i => i.id === id);
+
+        if (item) {
+            inputTipo.value = item.tipo;
+            inputDescricao.value = item.descricao;
+            inputData.value = item.data;
+            inputValor.value = item.valor.toFixed(2).replace('.', ',');
+
+            idEmEdicao = item.id;
+            
+            botaoSalvar.innerHTML = "<i class='bx bx-check-circle'></i> Atualizar Lançamento";
+            botaoSalvar.classList.add("botao--aviso");
+            
+            formulario.scrollIntoView({ behavior: 'smooth' });
         }
+    };
+
+    window.deletarLancamento = function(id) {
+        if (confirm("Tem certeza que deseja apagar este lançamento?")) {
+            let listaAtual = loadLancamentos();
+            const novaLista = listaAtual.filter(item => item.id !== id);
+            
+            saveLancamentos(novaLista);
+            renderizarLista();
+            
+            if (idEmEdicao === id) {
+                resetarFormulario();
+            }
+        }
+    };
+
+    function resetarFormulario() {
+        formulario.reset();
+        idEmEdicao = null;
+        botaoSalvar.innerHTML = "<i class='bx bx-save'></i> Salvar Lançamento";
+        botaoSalvar.classList.remove("botao--aviso");
+        try { inputData.valueAsDate = new Date(); } catch(e){}
     }
-    
-    // Função Auxiliar para criar o item na lista
-    function adicionarItemNaLista(item, noInicio = false) {
-        const li = document.createElement('li');
-        const eReceita = item.tipo === 'receita';
-        
-        li.className = eReceita ? 'item-receita' : 'item-despesa';
-        
-        const valorFormatado = item.valor.toLocaleString("pt-BR", { style: 'currency', currency: 'BRL' });
-        const sinal = eReceita ? '+' : '-';
+    /* <-----aqui termina as Funções Lógicas-----> */
 
-        li.innerHTML = `
-            <span>${item.descricao}</span>
-            <span class="valor">${sinal} ${valorFormatado}</span>
-        `;
-        
-        const itemInfo = listaLancamentos.querySelector('.item-info');
-        if (itemInfo) {
-            itemInfo.remove();
-        }
-
-        if (noInicio) {
-            listaLancamentos.prepend(li);
-        } else {
-            listaLancamentos.appendChild(li);
-        }
-    }
-
-    // 🚀 Carrega os dados reais ao abrir a página
-    carregarLancamentosIniciais();
-
-    console.log("Script de Lançamentos (lancamentos/script.js) carregado com localStorage!");
+    try { inputData.valueAsDate = new Date(); } catch(e){}
+    renderizarLista(); 
+    console.log("Sistema de Lançamentos carregado!");
 });

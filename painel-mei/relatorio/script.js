@@ -1,40 +1,31 @@
 /*
  * Arquivo: script.js (da Pasta relatorio)
  * Descrição: Inicia o gráfico de barras (ApexCharts).
- * Tarefas:
- * 1. (Menu Suspenso já está no appGLOBAL.js)
- * 2. Buscar dados (simulado) e iniciar o gráfico.
- * 3. Buscar dados (simulado) e preencher os resumos.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
   const filtroPeriodo = document.getElementById("filtro-periodo");
-  
-  // Variável para guardar o gráfico e podermos atualizar depois
   let graficoReceita;
 
+  /* <----- Inicio da Configuração do Gráfico (ApexCharts) -----> */
   function iniciarGraficoRelatorio(dadosGrafico) {
     const containerGrafico = document.querySelector("#grafico-barra-receita");
 
     if (!containerGrafico) return;
     if (typeof ApexCharts === "undefined") {
-      console.error("Erro: A biblioteca ApexCharts não foi carregada.");
       containerGrafico.innerHTML = "<p>Erro ao carregar gráfico.</p>";
       return;
     }
 
-    // Pega os valores das variáveis CSS (que estão no global)
     const corPrincipal = getComputedStyle(document.documentElement).getPropertyValue("--cor-principal").trim();
     const corFundoMedio = getComputedStyle(document.documentElement).getPropertyValue("--fundo-medio").trim();
     const corTexto = getComputedStyle(document.documentElement).getPropertyValue("--cor-texto").trim();
 
     const opcoes = {
-      series: [
-        {
+      series: [{
           name: "Receita",
-          data: dadosGrafico.valores, // Vem dos dados
-        },
-      ],
+          data: dadosGrafico.valores,
+      }],
       chart: {
         type: "bar",
         height: 350,
@@ -51,35 +42,29 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       dataLabels: { enabled: false },
       xaxis: {
-        categories: dadosGrafico.meses, // Vem dos dados
-        labels: {
-          style: {
-            colors: corTexto,
-          },
-        },
+        categories: dadosGrafico.meses, 
+        labels: { style: { colors: corTexto } },
       },
       yaxis: {
         labels: {
-          style: {
-            colors: corTexto,
-          },
+          style: { colors: corTexto },
           formatter: (valor) => "R$ " + (valor / 1000).toFixed(0) + "k",
         },
       },
       grid: { borderColor: corFundoMedio },
       tooltip: {
         theme: "dark",
-        y: {
-          formatter: (valor) => valor.toLocaleString("pt-BR", { style: 'currency', currency: 'BRL' }),
-        },
+        y: { formatter: (valor) => valor.toLocaleString("pt-BR", { style: 'currency', currency: 'BRL' }) },
       },
     };
 
     graficoReceita = new ApexCharts(containerGrafico, opcoes);
     graficoReceita.render();
   }
+  /* <-----aqui termina a Configuração do Gráfico-----> */
 
-  // --- TAREFA 2: PREENCHER OS RESUMOS ---
+
+  /* <----- Inicio do Preenchimento de Resumos -----> */
   function preencherResumos(dadosResumo) {
     const formatador = (valor) => valor.toLocaleString("pt-BR", { style: 'currency', currency: 'BRL' });
 
@@ -91,35 +76,13 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("resumo-despesa-detalhe").textContent = "-2% vs. período anterior";
     document.getElementById("resumo-lucro-detalhe").textContent = `Margem de ${dadosResumo.margem}%`;
   }
+  /* <-----aqui termina o Preenchimento de Resumos-----> */
 
 
-  // --- TAREFA 3: BUSCAR OS DADOS (Simulação) ---
+  /* <----- Inicio da Carga de Dados (Simulada) -----> */
   function carregarDadosRelatorio(periodo) {
-    console.log(`Buscando dados do relatório para o período: ${periodo}`);
-
-    // ==========================================================
-    // AQUI CONECTA AO BANCO DE DADOS (API)
-    // 
-    // ex: fetch(`/api/relatorios?periodo=${periodo}`)
-    //    .then(response => response.json())
-    //    .then(dadosDoBanco => {
-    //        // dadosDoBanco.resumo = { receita: 18500, ... }
-    //        // dadosDoBanco.grafico = { meses: ['Jan',...], valores: [5200,...] }
-    //        
-    //        preencherResumos(dadosDoBanco.resumo);
-    //
-    //        if (graficoReceita) {
-    //          graficoReceita.updateOptions({ // Atualiza gráfico
-    //             xaxis: { categories: dadosDoBanco.grafico.meses },
-    //             series: [{ data: dadosDoBanco.grafico.valores }]
-    //          });
-    //        } else {
-    //          iniciarGraficoRelatorio(dadosDoBanco.grafico); // Cria
-    //        }
-    //    })
-    // ==========================================================
-
-    // ----- SIMULAÇÃO -----
+    
+    // Simulação de dados
     const dadosSimulados = {
       resumo: { receita: 18500.00, despesa: 4200.00, lucro: 14300.00, margem: 77 },
       grafico: {
@@ -144,16 +107,14 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
        iniciarGraficoRelatorio(dadosSimulados.grafico);
     }
-    // ----- FIM DA SIMULAÇÃO -----
   }
+  /* <-----aqui termina a Carga de Dados-----> */
 
-  // 🚀 Chama a função para iniciar
   carregarDadosRelatorio(filtroPeriodo.value);
 
-  // Adiciona um "escutador" para recarregar os dados se o filtro mudar
   filtroPeriodo.addEventListener("change", () => {
     carregarDadosRelatorio(filtroPeriodo.value);
   });
   
-  console.log("Script de Relatórios (relatorio/script.js) carregado!");
+  console.log("Script de Relatórios carregado!");
 });

@@ -5,17 +5,19 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    // --- 1. Seletores de Elementos ---
+    /* <----- Inicio da Captura de Elementos -----> */
     const botaoNovoProduto = document.getElementById("botao-novo-produto");
     const modal = document.getElementById("produto-modal");
     const modalTitulo = document.getElementById("modal-titulo");
     const form = document.getElementById("produto-form");
     const listaProdutos = document.getElementById("lista-produtos");
     const botaoCancelar = document.getElementById("cancelar-produto");
+    /* <-----aqui termina a Captura de Elementos-----> */
 
-    // --- NOSSO "MINI-BANCO DE DADOS" LOCAL ---
+
+    /* <----- Inicio do Mini Banco de Dados (LocalStorage) -----> */
     const storageKey = 'nova_estoque_v1';
-    let editandoId = null; // Controla se estamos editando ou criando
+    let editandoId = null;
 
     function loadEstoque() {
         try {
@@ -29,9 +31,10 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.setItem(storageKey, JSON.stringify(estoque));
         } catch (e) { console.error("Erro ao salvar estoque:", e); }
     }
-    // --- FIM DO "MINI-BANCO DE DADOS" ---
+    /* <-----aqui termina o Mini Banco de Dados-----> */
 
-    // --- 2. Funções do Modal ---
+
+    /* <----- Inicio das Funções do Modal -----> */
     function abrirModal(modo, item = null) {
         form.reset();
         if (modo === 'editar' && item) {
@@ -51,11 +54,13 @@ document.addEventListener("DOMContentLoaded", () => {
     function fecharModal() {
         modal.classList.remove("ativo");
     }
+    /* <-----aqui termina as Funções do Modal-----> */
 
-    // --- 3. Renderização da Tabela ---
+
+    /* <----- Inicio da Renderização da Tabela -----> */
     function renderizarTabela() {
-        const estadoEstoque = loadEstoque(); // Sempre lê os dados mais recentes
-        listaProdutos.innerHTML = ""; // Limpa a tabela
+        const estadoEstoque = loadEstoque(); 
+        listaProdutos.innerHTML = "";
 
         if (estadoEstoque.length === 0) {
             listaProdutos.innerHTML = `
@@ -87,17 +92,14 @@ document.addEventListener("DOMContentLoaded", () => {
             listaProdutos.appendChild(tr);
         });
     }
+    /* <-----aqui termina a Renderização da Tabela-----> */
 
-    // --- 4. Lógica de CRUD (AGORA É DE VERDADE) ---
 
-    // Carregar
+    /* <----- Inicio da Lógica CRUD (Create, Update, Delete) -----> */
     function carregarEstoque() {
-        console.log("Carregando estoque do localStorage...");
-        // A simulação foi removida. Apenas renderizamos o que está salvo.
         renderizarTabela();
     }
 
-    // Salvar (Criar ou Atualizar)
     function salvarProduto(evento) {
         evento.preventDefault();
         
@@ -117,21 +119,16 @@ document.addEventListener("DOMContentLoaded", () => {
         let estoqueAtual = loadEstoque();
 
         if (editandoId) {
-            // ATUALIZAR (Update)
             estoqueAtual = estoqueAtual.map(item => item.id === editandoId ? dadosProduto : item);
-            console.log("Produto ATUALIZADO no localStorage:", dadosProduto);
         } else {
-            // CRIAR (Create)
             estoqueAtual.push(dadosProduto);
-            console.log("Produto CRIADO no localStorage:", dadosProduto);
         }
         
-        saveEstoque(estoqueAtual); // Salva a lista modificada
+        saveEstoque(estoqueAtual);
         renderizarTabela();
         fecharModal();
     }
 
-    // Excluir
     function excluirProduto(id) {
         if (!confirm("Tem certeza que deseja excluir este produto?")) {
             return;
@@ -141,16 +138,16 @@ document.addEventListener("DOMContentLoaded", () => {
         estoqueAtual = estoqueAtual.filter(item => item.id !== id);
         saveEstoque(estoqueAtual);
         
-        console.log("Produto EXCLUÍDO do localStorage, ID:", id);
         renderizarTabela();
     }
+    /* <-----aqui termina a Lógica CRUD-----> */
 
-    // --- 5. Funções Auxiliares ---
+
+    /* <----- Inicio das Funções Auxiliares e Listeners -----> */
     function formatarMoedaParaInput(valor) {
         return valor.toFixed(2).replace(".", ",");
     }
 
-    // --- 6. Event Listeners ---
     botaoNovoProduto.addEventListener("click", () => abrirModal('novo'));
     botaoCancelar.addEventListener("click", fecharModal);
     form.addEventListener("submit", salvarProduto);
@@ -172,8 +169,8 @@ document.addEventListener("DOMContentLoaded", () => {
             excluirProduto(id);
         }
     });
+    /* <-----aqui termina as Funções Auxiliares e Listeners-----> */
 
-    // --- 7. Iniciar ---
     carregarEstoque();
-    console.log("Script de Estoque (estoque/script.js) carregado com localStorage!");
+    console.log("Script de Estoque carregado!");
 });

@@ -1,5 +1,9 @@
-/* ===== VARIÁVEIS GLOBAIS (EM PORTUGUÊS) ===== */
-/* Centraliza todas as suas cores e sombras para fácil manutenção */
+/*
+ * Arquivo: styleGLOBAL.css
+ * DESCRIÇÃO: Estilos universais (reset, variáveis, menu, rodapé).
+ */
+
+/* <----- Inicio das Variáveis Globais (Cores e Temas) -----> */
 :root {
   --fundo-escuro: #1f1f1f;
   --fundo-claro: #2c2c2c;
@@ -14,8 +18,10 @@
   --cor-perigo: #ff6b6b;
   --cor-aviso: #ffcf6b;
 }
+/* <-----aqui termina as Variáveis Globais-----> */
 
-/* ===== RESET (LIMPEZA BÁSICA) ===== */
+
+/* <----- Inicio do Reset e Configurações Base -----> */
 * {
   margin: 0;
   padding: 0;
@@ -44,8 +50,10 @@ a {
 ul {
   list-style: none;
 }
+/* <-----aqui termina o Reset e Configurações Base-----> */
 
-/* ===== BARRA DE NAVEGAÇÃO (GLOBAL) ===== */
+
+/* <----- Inicio da Barra de Navegação (Menu Superior) -----> */
 .barra-navegacao {
   background-color: var(--fundo-claro);
   display: flex;
@@ -93,8 +101,10 @@ ul {
   color: var(--cor-principal);
   font-weight: 600;
 }
+/* <-----aqui termina a Barra de Navegação-----> */
 
-/* ===== MENU SUSPENSO (GLOBAL) ===== */
+
+/* <----- Inicio do Menu Suspenso (Dropdown) -----> */
 .menu-suspenso {
   position: relative;
 }
@@ -160,8 +170,10 @@ ul {
   color: var(--cor-principal);
   font-weight: 600;
 }
+/* <-----aqui termina o Menu Suspenso-----> */
 
-/* ===== CARTÃO (Estilo base GLOBAL) ===== */
+
+/* <----- Inicio dos Componentes Globais (Cartão, Botões) -----> */
 .cartao {
   background-color: var(--fundo-claro);
   border-radius: 1rem;
@@ -175,7 +187,6 @@ ul {
   box-shadow: 0 6px 15px var(--cor-sombra-media);
 }
 
-/* ===== BOTÕES (Estilo base GLOBAL) ===== */
 .botao {
   padding: 0.8rem 1.5rem;
   border-radius: 0.5rem;
@@ -205,8 +216,10 @@ ul {
 .botao--secundario:hover {
   opacity: 0.8;
 }
+/* <-----aqui termina os Componentes Globais-----> */
 
-/* ===== FORMULÁRIOS (Estilos base GLOBAIS) ===== */
+
+/* <----- Inicio dos Formulários Globais -----> */
 .grupo-campos {
   border: 1px solid var(--fundo-medio);
   border-radius: 0.5rem;
@@ -252,6 +265,7 @@ ul {
 .campo input[type="email"],
 .campo input[type="tel"],
 .campo input[type="date"],
+.campo input[type="number"],
 .campo textarea,
 .campo select {
   background-color: var(--fundo-medio);
@@ -284,7 +298,6 @@ ul {
   min-height: 80px;
 }
 
-/* (Estilo copiado do 'relatorio' para ser global) */
 .filtro-select {
   background-color: var(--fundo-medio);
   color: var(--cor-texto);
@@ -302,16 +315,17 @@ ul {
   background-size: 0.65rem auto;
   padding-right: 2.5rem;
 }
+/* <-----aqui termina os Formulários Globais-----> */
 
 
-/* ===== RODAPÉ (GLOBAL) ===== */
+/* <----- Inicio do Rodapé -----> */
 .rodape {
   background-color: var(--fundo-claro);
   text-align: center;
   padding: 1rem 0;
   font-size: 0.85rem;
   color: var(--cor-texto-secundario);
-  margin-top: auto; /* Garante que o rodapé fique no final */
+  margin-top: auto;
 }
 
 .rodape a {
@@ -322,8 +336,10 @@ ul {
 .rodape a:hover {
   text-decoration: underline;
 }
+/* <-----aqui termina o Rodapé-----> */
 
-/* ===== AJUSTES RESPONSIVOS (GLOBAIS) ===== */
+
+/* <----- Inicio da Responsividade Global -----> */
 @media (max-width: 768px) {
   .barra-navegacao {
     padding: 0.8rem 1rem;
@@ -331,6 +347,7 @@ ul {
   .barra-navegacao__menu {
     gap: 1rem;
   }
+  
   .barra-navegacao__menu span {
     display: none;
   }
@@ -339,10 +356,10 @@ ul {
     right: 0;
   }
 
-  /* Faz os campos de formulário ficarem um em cima do outro */
   .campo-linha {
     flex-direction: column;
     gap: 1rem;
     margin-top: 1rem;
   }
 }
+/* <-----aqui termina a Responsividade Global-----> */

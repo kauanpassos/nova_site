@@ -1,39 +1,32 @@
 /*
- * Arquivo: appGLOBAL.js (GLOBAL)
- * Descrição: Este arquivo controla interações globais do site.
- * Tarefa:
- * 1. Fazer o Menu Suspenso (Dropdown) abrir e fechar.
+ * Arquivo: appGLOBAL.js
+ * DESCRIÇÃO: Funcionalidades globais (Menu Dropdown, inicializações comuns).
  */
 
-// Espera todo o HTML da página carregar
 document.addEventListener("DOMContentLoaded", () => {
   
-  // --- LÓGICA DO MENU SUSPENSO (DROPDOWN) ---
+  /* <----- Inicio da Lógica do Menu Dropdown -----> */
   const menuSuspenso = document.querySelector(".menu-suspenso");
   const botaoMenu = document.querySelector(".menu-suspenso__botao");
 
-  if (botaoMenu) {
+  if (botaoMenu && menuSuspenso) {
     botaoMenu.addEventListener("click", (evento) => {
-      // Impede que o clique se espalhe para outros elementos
-      evento.stopPropagation(); 
-      
-      // Adiciona ou remove a classe "ativo" no menu
+      evento.stopPropagation();
       menuSuspenso.classList.toggle("ativo");
-
-      // Atualiza a acessibilidade (bom para leitores de tela)
+      
       const estaAberto = menuSuspenso.classList.contains("ativo");
       botaoMenu.setAttribute("aria-expanded", estaAberto);
     });
+
+    // Fecha o menu ao clicar fora
+    document.addEventListener("click", () => {
+      if (menuSuspenso.classList.contains("ativo")) {
+        menuSuspenso.classList.remove("ativo");
+        botaoMenu.setAttribute("aria-expanded", "false");
+      }
+    });
   }
+  /* <-----aqui termina o Menu Dropdown-----> */
 
-  // Escutador para fechar o menu se clicar em qualquer lugar FORA dele
-  document.addEventListener("click", () => {
-    if (menuSuspenso && menuSuspenso.classList.contains("ativo")) {
-      menuSuspenso.classList.remove("ativo");
-      botaoMenu.setAttribute("aria-expanded", "false");
-    }
-  });
-  
-  console.log("App global (appGLOBAL.js) carregado.");
-
+  console.log("App Global (appGLOBAL.js) carregado com sucesso.");
 });

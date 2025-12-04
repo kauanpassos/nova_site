@@ -1,13 +1,11 @@
 /*
  * Arquivo: script.js (da Pasta inicio)
- * DESCRIÇÃO: Carrega dados REAIS do localStorage para o dashboard.
+ * DESCRIÇÃO: Dashboard Inteligente. Carrega dados REAIS do localStorage.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
   
-    // --- FUNÇÕES "HELPER" PARA LER O LOCALSTORAGE ---
-    // (Precisamos delas aqui para que o dashboard possa ler os dados)
-
+    /* <----- Inicio das Funções de Leitura de Dados (Helpers) -----> */
     function loadLancamentos() {
         try {
             const dados = localStorage.getItem('nova_lancamentos_v1');
@@ -22,25 +20,20 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (e) { return []; }
     }
 
-    // --- TAREFA 1: ATUALIZAR O PAINEL DE PROGRESSO (AGORA É REAL) ---
-
     function formatarMoeda(valor) {
-        return valor.toLocaleString('pt-BR', { 
-            style: 'currency', 
-            currency: 'BRL' 
-        });
+        return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     }
+    /* <-----aqui termina as Funções de Leitura-----> */
 
+
+    /* <----- Inicio da Lógica do Painel de Metas -----> */
     function atualizarProgresso(meta, lucro) {
         const painel = document.querySelector(".painel");
         const elementoMeta = document.getElementById("meta-lucro");
         const elementoLucro = document.getElementById("lucro-atual");
         const textoGrafico = document.querySelector(".grafico__texto");
 
-        if (!painel || !elementoMeta || !elementoLucro || !textoGrafico) {
-            console.error("Erro: Elementos do painel de progresso não encontrados.");
-            return;
-        }
+        if (!painel || !elementoMeta || !elementoLucro) return;
 
         elementoMeta.textContent = formatarMoeda(meta);
         elementoLucro.textContent = formatarMoeda(lucro);
@@ -49,24 +42,17 @@ document.addEventListener("DOMContentLoaded", () => {
         if (meta > 0) {
             porcentagem = (lucro / meta) * 100;
         }
-        if (porcentagem > 100) {
-            porcentagem = 100;
-        }
+        
+        const porcentagemVisual = porcentagem > 100 ? 100 : porcentagem;
         const porcentagemArredondada = Math.round(porcentagem);
 
-        painel.style.setProperty("--porcentagem", porcentagemArredondada);
+        painel.style.setProperty("--porcentagem", Math.round(porcentagemVisual));
         textoGrafico.textContent = `${porcentagemArredondada}%`;
     }
 
-    function carregarDadosDoPainel() {
-        console.log("Buscando dados REAIS do painel...");
-        
-        // ==========================================================
-        // AGORA É DE VERDADE!
-        // 1. Carrega todos os lançamentos
+    function carregarDadosFinanceiros() {
         const lancamentos = loadLancamentos();
         
-        // 2. Calcula o lucro real
         let lucroReal = 0;
         lancamentos.forEach(item => {
             if (item.tipo === 'receita') {
@@ -76,65 +62,36 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
         
-        // 3. A Meta ainda é simulada (poderia vir do Perfil, mas vamos manter simples)
         const metaSimulada = 5000.00;
         
         atualizarProgresso(metaSimulada, lucroReal);
-        // ==========================================================
     }
+    /* <-----aqui termina a Lógica do Painel de Metas-----> */
 
-    // --- TAREFA 2: CARREGAR OS WIDGETS (AGORA É REAL) ---
 
-    function carregarWidgets() {
-        console.log("Buscando dados REAIS para os widgets...");
-        const listaLancamentosEl = document.getElementById("lista-ultimos-lancamentos");
-        const listaEstoqueEl = document.getElementById("lista-estoque-baixo");
-
-        if (!listaLancamentosEl || !listaEstoqueEl) {
-            console.error("Erro: Elementos dos widgets não encontrados.");
-            return;
-        }
-
-        // ==========================================================
-        // AGORA É DE VERDADE!
-        // 1. Carrega os dados
-        const todosLancamentos = loadLancamentos();
-        const todoEstoque = loadEstoque();
-
-        // 2. Pega os 3 últimos lançamentos
-        const ultimosLancamentos = todosLancamentos.reverse().slice(0, 3);
-        
-        // 3. Pega os 3 itens de estoque mais baixo (ex: <= 10)
-        const estoqueBaixo = todoEstoque
-            .filter(item => item.qtd <= 10) // Define o "nível de alerta"
-            .sort((a, b) => a.qtd - b.qtd) // Ordena (mais baixo primeiro)
-            .slice(0, 3); // Pega os 3 piores
-
-        preencherWidgetLancamentos(ultimosLancamentos);
-        preencherWidgetEstoque(estoqueBaixo);
-        // ==========================================================
-    }
-
+    /* <----- Inicio da Lógica dos Widgets (Listas) -----> */
     function preencherWidgetLancamentos(lancamentos) {
         const listaEl = document.getElementById("lista-ultimos-lancamentos");
-        listaEl.innerHTML = ""; // Limpa
+        if (!listaEl) return;
+        
+        listaEl.innerHTML = "";
 
         if (lancamentos.length === 0) {
             listaEl.innerHTML = "<li class='item-info'>Nenhum lançamento recente.</li>";
             return;
         }
 
-        lancamentos.forEach(item => {
+        const ultimos3 = [...lancamentos].reverse().slice(0, 3);
+
+        ultimos3.forEach(item => {
             const li = document.createElement("li");
             const eReceita = item.tipo === 'receita';
             li.className = eReceita ? 'item-receita' : 'item-despesa';
             
-            const valorFormatado = formatarMoeda(item.valor);
             const sinal = eReceita ? '+' : '-';
-
             li.innerHTML = `
                 <span>${item.descricao}</span>
-                <span class="valor">${sinal} ${valorFormatado}</span>
+                <span class="valor">${sinal} ${formatarMoeda(item.valor)}</span>
             `;
             listaEl.appendChild(li);
         });
@@ -142,14 +99,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function preencherWidgetEstoque(estoque) {
         const listaEl = document.getElementById("lista-estoque-baixo");
-        listaEl.innerHTML = ""; // Limpa
+        if (!listaEl) return;
+        
+        listaEl.innerHTML = "";
 
-        if (estoque.length === 0) {
-            listaEl.innerHTML = "<li class='item-info'>Estoque em dia!</li>";
+        const estoqueBaixo = estoque
+            .filter(item => item.qtd <= 10)
+            .sort((a, b) => a.qtd - b.qtd)
+            .slice(0, 3);
+
+        if (estoqueBaixo.length === 0) {
+            listaEl.innerHTML = "<li class='item-info'>Estoque em dia! ✅</li>";
             return;
         }
 
-        estoque.forEach(item => {
+        estoqueBaixo.forEach(item => {
             const li = document.createElement("li");
             li.className = 'item-aviso';
             li.innerHTML = `
@@ -160,10 +124,16 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    function carregarWidgets() {
+        const todosLancamentos = loadLancamentos();
+        const todoEstoque = loadEstoque();
 
-    // --- INICIALIZAÇÃO ---
-    carregarDadosDoPainel(); // Carrega o progresso real
-    carregarWidgets(); // Carrega os widgets reais
+        preencherWidgetLancamentos(todosLancamentos);
+        preencherWidgetEstoque(todoEstoque);
+    }
+    /* <-----aqui termina a Lógica dos Widgets-----> */
 
-    console.log("Script da Página Inicial (inicio/script.js) carregado com dados REAIS!");
+    carregarDadosFinanceiros();
+    carregarWidgets();
+    console.log("Dashboard atualizado com dados reais.");
 });
