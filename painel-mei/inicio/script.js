@@ -5,7 +5,7 @@
 
 document.addEventListener("DOMContentLoaded", () => {
   
-    /* <----- Inicio das Funções de Leitura de Dados (Helpers) -----> */
+    /* <----- Inicio das Funções de Leitura de Dados -----> */
     function loadLancamentos() {
         try {
             const dados = localStorage.getItem('nova_lancamentos_v1');
@@ -23,8 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function formatarMoeda(valor) {
         return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     }
-    /* <-----aqui termina as Funções de Leitura-----> */
-
+    /* <-----aqui termina as Funções de Leitura de Dados-----> */
 
     /* <----- Inicio da Lógica do Painel de Metas -----> */
     function atualizarProgresso(meta, lucro) {
@@ -39,9 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
         elementoLucro.textContent = formatarMoeda(lucro);
         
         let porcentagem = 0;
-        if (meta > 0) {
-            porcentagem = (lucro / meta) * 100;
-        }
+        if (meta > 0) { porcentagem = (lucro / meta) * 100; }
         
         const porcentagemVisual = porcentagem > 100 ? 100 : porcentagem;
         const porcentagemArredondada = Math.round(porcentagem);
@@ -52,28 +49,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function carregarDadosFinanceiros() {
         const lancamentos = loadLancamentos();
-        
         let lucroReal = 0;
         lancamentos.forEach(item => {
-            if (item.tipo === 'receita') {
-                lucroReal += item.valor;
-            } else {
-                lucroReal -= item.valor;
-            }
+            if (item.tipo === 'receita') { lucroReal += item.valor; } 
+            else { lucroReal -= item.valor; }
         });
-        
         const metaSimulada = 5000.00;
-        
         atualizarProgresso(metaSimulada, lucroReal);
     }
     /* <-----aqui termina a Lógica do Painel de Metas-----> */
 
-
-    /* <----- Inicio da Lógica dos Widgets (Listas) -----> */
+    /* <----- Inicio da Lógica dos Widgets -----> */
     function preencherWidgetLancamentos(lancamentos) {
         const listaEl = document.getElementById("lista-ultimos-lancamentos");
         if (!listaEl) return;
-        
         listaEl.innerHTML = "";
 
         if (lancamentos.length === 0) {
@@ -82,17 +71,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const ultimos3 = [...lancamentos].reverse().slice(0, 3);
-
         ultimos3.forEach(item => {
             const li = document.createElement("li");
             const eReceita = item.tipo === 'receita';
             li.className = eReceita ? 'item-receita' : 'item-despesa';
-            
             const sinal = eReceita ? '+' : '-';
-            li.innerHTML = `
-                <span>${item.descricao}</span>
-                <span class="valor">${sinal} ${formatarMoeda(item.valor)}</span>
-            `;
+            li.innerHTML = `<span>${item.descricao}</span><span class="valor">${sinal} ${formatarMoeda(item.valor)}</span>`;
             listaEl.appendChild(li);
         });
     }
@@ -100,7 +84,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function preencherWidgetEstoque(estoque) {
         const listaEl = document.getElementById("lista-estoque-baixo");
         if (!listaEl) return;
-        
         listaEl.innerHTML = "";
 
         const estoqueBaixo = estoque
@@ -109,17 +92,14 @@ document.addEventListener("DOMContentLoaded", () => {
             .slice(0, 3);
 
         if (estoqueBaixo.length === 0) {
-            listaEl.innerHTML = "<li class='item-info'>Estoque em dia! ✅</li>";
+            listaEl.innerHTML = "<li class='item-info'>Estoque em dia!</li>";
             return;
         }
 
         estoqueBaixo.forEach(item => {
             const li = document.createElement("li");
             li.className = 'item-aviso';
-            li.innerHTML = `
-                <span class="nome">${item.nome}</span>
-                <span class="qtd">Restam: ${item.qtd}</span>
-            `;
+            li.innerHTML = `<span class="nome">${item.nome}</span><span class="qtd">Restam: ${item.qtd}</span>`;
             listaEl.appendChild(li);
         });
     }
@@ -127,7 +107,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function carregarWidgets() {
         const todosLancamentos = loadLancamentos();
         const todoEstoque = loadEstoque();
-
         preencherWidgetLancamentos(todosLancamentos);
         preencherWidgetEstoque(todoEstoque);
     }
@@ -135,5 +114,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
     carregarDadosFinanceiros();
     carregarWidgets();
-    console.log("Dashboard atualizado com dados reais.");
 });

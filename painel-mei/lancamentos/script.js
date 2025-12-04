@@ -1,11 +1,11 @@
 /*
  * Arquivo: script.js (da Pasta lancamentos)
- * DESCRIÇÃO: CRUD Completo.
+ * DESCRIÇÃO: CRUD Completo, Blindado e com UX de Confirmação.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
     
-    /* <----- Inicio da captura de elementos do DOM -----> */
+    /* <----- Inicio da captura de elementos -----> */
     const formulario = document.getElementById("form-lancamento");
     const listaLancamentos = document.getElementById("lista-lancamentos");
     const inputTipo = document.getElementById("tipo");
@@ -13,10 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputData = document.getElementById("data");
     const inputDescricao = document.getElementById("descricao");
     const botaoSalvar = formulario.querySelector("button[type='submit']");
-    /* <-----aqui termina a captura de elementos do DOM-----> */
+    /* <-----aqui termina a captura de elementos-----> */
 
-
-    /* <----- Inicio do controle de estado (Mini Banco de Dados) -----> */
     const storageKey = 'nova_lancamentos_v1';
     let idEmEdicao = null; 
 
@@ -30,90 +28,107 @@ document.addEventListener("DOMContentLoaded", () => {
     function saveLancamentos(lancamentos) {
         localStorage.setItem(storageKey, JSON.stringify(lancamentos));
     }
-    /* <-----aqui termina o controle de estado-----> */
 
+    /* <----- Inicio da Máscara de Moeda (Bloqueia letras) -----> */
+    inputValor.addEventListener("input", (e) => {
+        let value = e.target.value;
+        // 1. Remove qualquer caractere que NÃO seja número
+        value = value.replace(/\D/g, "");
 
-    /* <----- Inicio das Funções de Renderização (Visual) -----> */
-    function renderizarLista() {
-        const lancamentos = loadLancamentos();
-        
-        listaLancamentos.innerHTML = "";
-
-        if (lancamentos.length === 0) {
-            listaLancamentos.innerHTML = `
-                <li class="item-info">Nenhum lançamento ainda.</li>
-            `;
+        if (value === "") {
+            e.target.value = "";
             return;
         }
 
-        const listaInvertida = [...lancamentos].reverse();
+        // 2. Formata para R$
+        value = (parseFloat(value) / 100).toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        });
 
-        listaInvertida.forEach(item => {
+        e.target.value = value;
+    });
+    /* <-----aqui termina a Máscara de Moeda-----> */
+
+    /* <----- Inicio da Renderização -----> */
+    function renderizarLista() {
+        const lancamentos = loadLancamentos();
+        
+        // PASSO CRUCIAL: Limpa a lista ANTES de checar se está vazia
+        listaLancamentos.innerHTML = "";
+
+        if (lancamentos.length === 0) {
+            listaLancamentos.innerHTML = "<li class='item-info'>Nenhum lançamento ainda.</li>";
+            return;
+        }
+
+        // Ordena por data (mais recente primeiro)
+        const listaOrdenada = [...lancamentos].sort((a, b) => {
+            const dataA = new Date(a.data);
+            const dataB = new Date(b.data);
+            if (dataB - dataA !== 0) return dataB - dataA;
+            return b.id - a.id;
+        });
+
+        listaOrdenada.forEach(item => {
             const li = document.createElement('li');
             const eReceita = item.tipo === 'receita';
-            
             li.className = eReceita ? 'item-receita' : 'item-despesa';
 
-            const valorFormatado = item.valor.toLocaleString("pt-BR", { style: 'currency', currency: 'BRL' });
+            const valorNumerico = parseFloat(item.valor);
+            const valorFormatado = valorNumerico.toLocaleString("pt-BR", { style: 'currency', currency: 'BRL' });
             const sinal = eReceita ? '+' : '-';
-            const dataFormatada = new Date(item.data).toLocaleDateString('pt-BR', {timeZone: 'UTC'});
+            const dataObjeto = new Date(item.data + 'T00:00:00');
+            const dataFormatada = dataObjeto.toLocaleDateString('pt-BR');
 
+            // HTML Limpo (sem style inline)
             li.innerHTML = `
                 <div class="conteudo-li">
                     <div class="info-texto">
-                        <span style="display:block; font-weight:bold;">${item.descricao}</span>
-                        <span style="font-size: 0.8rem; color: #888;">${dataFormatada}</span>
+                        <span class="lancamento-titulo">${item.descricao}</span>
+                        <span class="lancamento-data">${dataFormatada}</span>
                     </div>
                     <span class="valor">${sinal} ${valorFormatado}</span>
                 </div>
-                
                 <div class="acoes-item">
-                    <button class="botao-acao btn-editar" onclick="iniciarEdicao(${item.id})" title="Editar">
-                        <i class='bx bx-pencil'></i>
-                    </button>
-                    <button class="botao-acao btn-excluir" onclick="deletarLancamento(${item.id})" title="Excluir">
-                        <i class='bx bx-trash'></i>
-                    </button>
+                    <button class="botao-acao btn-editar" onclick="iniciarEdicao(${item.id})" title="Editar"><i class='bx bx-pencil'></i></button>
+                    <button class="botao-acao btn-excluir" onclick="deletarLancamento(${item.id})" title="Excluir"><i class='bx bx-trash'></i></button>
                 </div>
             `;
-
             listaLancamentos.appendChild(li);
         });
     }
-    /* <-----aqui termina as Funções de Renderização-----> */
+    /* <-----aqui termina a Renderização-----> */
 
-
-    /* <----- Inicio das Funções Lógicas (CRUD) -----> */
+    /* <----- Inicio da Lógica CRUD -----> */
     formulario.addEventListener("submit", (evento) => {
         evento.preventDefault();
-
-        let valorLimpo = inputValor.value.replace("R$", "").replace(/\./g, "").replace(",", ".");
+        
+        // Remove R$ e pontos, mantém apenas dígitos para salvar
+        let valorLimpo = inputValor.value.replace(/\D/g, "");
+        let valorFloat = parseFloat(valorLimpo) / 100;
         
         const dadosFormulario = {
             id: idEmEdicao || Date.now(),
             tipo: inputTipo.value,
-            valor: parseFloat(valorLimpo),
+            valor: valorFloat,
             data: inputData.value,
             descricao: inputDescricao.value || "Sem descrição"
         };
-
+        
         if (isNaN(dadosFormulario.valor) || dadosFormulario.valor <= 0) {
-            alert("Por favor, insira um valor válido.");
-            return;
+            alert("Valor inválido."); return;
         }
 
         let listaAtual = loadLancamentos();
-
         if (idEmEdicao) {
             const index = listaAtual.findIndex(item => item.id === idEmEdicao);
-            if (index !== -1) {
-                listaAtual[index] = dadosFormulario;
-            }
-            alert("Lançamento atualizado com sucesso!");
+            if (index !== -1) listaAtual[index] = dadosFormulario;
+            alert("Lançamento atualizado!");
         } else {
             listaAtual.push(dadosFormulario);
         }
-
+        
         saveLancamentos(listaAtual);
         renderizarLista();
         resetarFormulario();
@@ -122,34 +137,29 @@ document.addEventListener("DOMContentLoaded", () => {
     window.iniciarEdicao = function(id) {
         const listaAtual = loadLancamentos();
         const item = listaAtual.find(i => i.id === id);
-
         if (item) {
             inputTipo.value = item.tipo;
             inputDescricao.value = item.descricao;
             inputData.value = item.data;
-            inputValor.value = item.valor.toFixed(2).replace('.', ',');
-
-            idEmEdicao = item.id;
             
+            // Formata o valor para exibir no input
+            let valorNum = parseFloat(item.valor);
+            inputValor.value = valorNum.toLocaleString("pt-BR", { style: 'currency', currency: 'BRL' });
+            
+            idEmEdicao = item.id;
             botaoSalvar.innerHTML = "<i class='bx bx-check-circle'></i> Atualizar Lançamento";
             botaoSalvar.classList.add("botao--aviso");
-            
             formulario.scrollIntoView({ behavior: 'smooth' });
         }
     };
 
     window.deletarLancamento = function(id) {
-        if (confirm("Tem certeza que deseja apagar este lançamento?")) {
+        mostrarConfirmacao("Deseja realmente apagar este lançamento?", () => {
             let listaAtual = loadLancamentos();
-            const novaLista = listaAtual.filter(item => item.id !== id);
-            
-            saveLancamentos(novaLista);
+            saveLancamentos(listaAtual.filter(i => i.id !== id));
             renderizarLista();
-            
-            if (idEmEdicao === id) {
-                resetarFormulario();
-            }
-        }
+            if(idEmEdicao === id) resetarFormulario();
+        });
     };
 
     function resetarFormulario() {
@@ -159,9 +169,8 @@ document.addEventListener("DOMContentLoaded", () => {
         botaoSalvar.classList.remove("botao--aviso");
         try { inputData.valueAsDate = new Date(); } catch(e){}
     }
-    /* <-----aqui termina as Funções Lógicas-----> */
+    /* <-----aqui termina a Lógica CRUD-----> */
 
     try { inputData.valueAsDate = new Date(); } catch(e){}
-    renderizarLista(); 
-    console.log("Sistema de Lançamentos carregado!");
+    renderizarLista();
 });

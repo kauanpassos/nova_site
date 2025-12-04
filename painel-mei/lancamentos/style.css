@@ -1,5 +1,9 @@
+/*
+ * Arquivo: style.css (da Pasta lancamentos)
+ * DESCRIÇÃO: Estilos visuais da página de lançamentos.
+ */
 
-/*<----- Inicio da Estrutura Principal -----> */
+/* <----- Inicio da Estrutura Principal -----> */
 .conteudo-principal {
     flex: 1;
     max-width: 900px;
@@ -12,8 +16,7 @@
 }
 /* <-----aqui termina a Estrutura Principal-----> */
 
-
-/* <----- Inicio do Cabeçalho da Página -----> */
+/* <----- Inicio do Cabeçalho -----> */
 .cabecalho-pagina {
     padding-bottom: 1.5rem;
     border-bottom: 1px solid var(--fundo-medio);
@@ -27,8 +30,7 @@
     color: var(--cor-texto-secundario);
     font-size: 0.95rem;
 }
-/* <-----aqui termina o Cabeçalho da Página-----> */
-
+/* <-----aqui termina o Cabeçalho-----> */
 
 /* <----- Inicio do Formulário e Ações -----> */
 .formulario-acoes {
@@ -37,18 +39,14 @@
     margin-top: 1rem;
 }
 
-/* Botão de aviso (amarelo) usado durante a edição */
 .botao--aviso {
     background-color: var(--cor-aviso);
     color: var(--fundo-escuro);
 }
-.botao--aviso:hover {
-    opacity: 0.9;
-}
-/* <-----aqui termina o Formulário e Ações-----> */
+.botao--aviso:hover { opacity: 0.9; }
+/* <-----aqui termina Formulário e Ações-----> */
 
-
-/* <----- Inicio da Lista de Lançamentos (Container) -----> */
+/* <----- Inicio da Lista -----> */
 .lista-lancamentos {
     list-style: none;
     padding: 0;
@@ -57,63 +55,55 @@
     flex-direction: column;
     gap: 0.75rem;
 }
-/* <-----aqui termina a Lista de Lançamentos-----> */
 
-
-/* <----- Inicio do Item da Lista (Layout) -----> */
 .lista-lancamentos li {
     display: flex;
-    justify-content: space-between; /* Separa conteúdo dos botões */
+    justify-content: space-between;
     align-items: center;
     padding: 1rem 1.5rem;
     background-color: var(--fundo-medio);
     border-radius: 0.5rem;
     font-weight: 600;
     animation: surgir 0.3s ease;
-    flex-wrap: wrap; /* Importante para responsividade */
+    flex-wrap: wrap; 
 }
 
-/* Container que agrupa Texto + Valor (Lado Esquerdo) */
 .conteudo-li {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-grow: 1; /* Ocupa o máximo de espaço possível */
-    margin-right: 1rem; /* Afasta dos botões de ação */
+    flex-grow: 1;
+    margin-right: 1rem;
 }
 
-/* Agrupamento de Descrição e Data */
 .info-texto {
     display: flex;
     flex-direction: column;
 }
-/* <-----aqui termina o Item da Lista (Layout)-----> */
+/* <-----aqui termina a Lista-----> */
 
-
-/* <----- Inicio das Cores de Receita e Despesa -----> */
-/* Definição das Bordas Laterais */
-.lista-lancamentos .item-receita {
-    border-left: 5px solid var(--cor-sucesso);
-}
-.lista-lancamentos .item-despesa {
-    border-left: 5px solid var(--cor-perigo);
+/* <----- Inicio de Estilos Dinâmicos (JS) -----> */
+.lancamento-titulo {
+    display: block;
+    font-weight: bold;
+    color: var(--cor-texto);
 }
 
-/* Definição das Cores do Texto (Valor R$) */
-.item-receita .valor {
-    color: var(--cor-sucesso);
-    font-weight: 700;
-    font-size: 1.1rem;
+.lancamento-data {
+    font-size: 0.8rem;
+    color: var(--cor-texto-secundario);
 }
-.item-despesa .valor {
-    color: var(--cor-perigo);
-    font-weight: 700;
-    font-size: 1.1rem;
-}
-/* <-----aqui termina as Cores de Receita e Despesa-----> */
+/* <-----aqui termina Estilos Dinâmicos-----> */
 
+/* <----- Inicio das Cores (Receita/Despesa) -----> */
+.lista-lancamentos .item-receita { border-left: 5px solid var(--cor-sucesso); }
+.lista-lancamentos .item-despesa { border-left: 5px solid var(--cor-perigo); }
 
-/* <----- Inicio dos Botões de Ação (Editar/Excluir) -----> */
+.item-receita .valor { color: var(--cor-sucesso); font-weight: 700; font-size: 1.1rem; }
+.item-despesa .valor { color: var(--cor-perigo); font-weight: 700; font-size: 1.1rem; }
+/* <-----aqui termina as Cores-----> */
+
+/* <----- Inicio dos Botões de Ação -----> */
 .acoes-item {
     display: flex;
     gap: 0.5rem;
@@ -133,40 +123,26 @@
     justify-content: center;
 }
 
-/* Botão Lápis (Editar) */
-.btn-editar {
-    color: var(--cor-texto-secundario);
-}
+.btn-editar { color: var(--cor-texto-secundario); }
 .btn-editar:hover {
     background-color: var(--fundo-claro);
     color: var(--cor-principal);
     border-color: var(--fundo-medio);
 }
 
-/* Botão Lixeira (Excluir) */
-.btn-excluir {
-    color: var(--cor-texto-secundario);
-}
+.btn-excluir { color: var(--cor-texto-secundario); }
 .btn-excluir:hover {
-    background-color: rgba(255, 107, 107, 0.15); /* Vermelho translúcido */
+    background-color: rgba(255, 107, 107, 0.15);
     color: var(--cor-perigo);
 }
-/* <-----aqui termina os Botões de Ação-----> */
+/* <-----aqui termina Botões de Ação-----> */
 
-
-/* <----- Inicio de Animações e Extras -----> */
+/* <----- Inicio da Animação -----> */
 @keyframes surgir {
-  from {
-    opacity: 0;
-    transform: translateX(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(-10px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
-/* Estilo para quando a lista está vazia ou carregando */
 .lista-lancamentos .item-info {
     color: var(--cor-texto-secundario);
     justify-content: center;
@@ -176,41 +152,15 @@
     padding: 2rem;
     border: 1px dashed var(--fundo-medio);
 }
-/* <-----aqui termina Animações e Extras-----> */
+/* <-----aqui termina a Animação-----> */
 
-
-/* <----- Inicio da Responsividade (Mobile) -----> */
+/* <----- Inicio da Responsividade -----> */
 @media (max-width: 600px) {
-    .conteudo-principal {
-        padding: 1rem;
-    }
-    
-    .lista-lancamentos li {
-        padding: 1rem;
-        gap: 1rem;
-    }
-
-    /* No celular, o texto ocupa a linha de cima inteira */
-    .conteudo-li {
-        width: 100%; 
-        margin-right: 0;
-        margin-bottom: 0.5rem;
-    }
-
-    /* Botões vão para a linha de baixo, alinhados à direita */
-    .acoes-item {
-        width: 100%;
-        justify-content: flex-end; 
-        border-top: 1px solid rgba(255,255,255,0.05);
-        padding-top: 0.5rem;
-    }
-
-    .formulario-acoes {
-        flex-direction: column;
-    }
-    .botao {
-        width: 100%;
-        justify-content: center;
-    }
+    .conteudo-principal { padding: 1rem; }
+    .lista-lancamentos li { padding: 1rem; gap: 1rem; }
+    .conteudo-li { width: 100%; margin-right: 0; margin-bottom: 0.5rem; }
+    .acoes-item { width: 100%; justify-content: flex-end; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 0.5rem; }
+    .formulario-acoes { flex-direction: column; }
+    .botao { width: 100%; justify-content: center; }
 }
 /* <-----aqui termina a Responsividade-----> */

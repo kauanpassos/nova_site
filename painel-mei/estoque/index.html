@@ -42,7 +42,7 @@
     <main class="conteudo-principal">
         <section class="cabecalho-pagina">
             <h1>Meu Estoque</h1>
-            <p>Gerencie seus produtos, serviços e quantidades.</p>
+            <p>Gerencie seus ingredientes, produtos e validades.</p>
         </section>
 
         <div class="acoes-estoque">
@@ -56,15 +56,16 @@
                 <table class="tabela-estoque">
                     <thead>
                         <tr>
-                            <th>Produto / Serviço</th>
+                            <th>Produto / Ingrediente</th>
                             <th>Qtd.</th>
+                            <th>Validade</th>
                             <th>Preço de Venda</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody id="lista-produtos">
                         <tr class="item-info">
-                            <td colspan="4">Carregando estoque...</td>
+                            <td colspan="5">Carregando estoque...</td>
                         </tr>
                     </tbody>
                 </table>
@@ -78,7 +79,7 @@
             <form class="formulario-modal" id="produto-form">
                 
                 <div class="campo">
-                    <label for="produto-nome">Nome do Produto/Serviço</label>
+                    <label for="produto-nome">Nome do Produto/Ingrediente</label>
                     <input id="produto-nome" type="text" required>
                 </div>
 
@@ -88,9 +89,15 @@
                         <input id="produto-qtd" type="number" value="1">
                     </div>
                     <div class="campo">
-                        <label for="produto-preco">Preço de Venda</label>
+                        <label for="produto-preco">Preço de Venda (Opcional)</label>
                         <input id="produto-preco" type="text" placeholder="R$ 0,00">
                     </div>
+                </div>
+
+                <div class="campo">
+                    <label for="produto-validade">Data de Validade</label>
+                    <input id="produto-validade" type="date">
+                    <small class="texto-ajuda">Deixe em branco se não expira.</small>
                 </div>
 
                 <div class="campo">
@@ -106,12 +113,8 @@
         </div>
     </div>
 
-
     <footer class="rodape">
-      <p>
-        © 2025 N.O.V.A. Todos os direitos reservados ·
-        <a href="#">Termos</a> · <a href="#">Privacidade</a>
-      </p>
+      <p>© 2025 N.O.V.A. Todos os direitos reservados</p>
     </footer>
 
     <script src="../appGLOBAL.js" defer></script>

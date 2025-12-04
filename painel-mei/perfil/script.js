@@ -1,6 +1,6 @@
 /*
  * Arquivo: script.js (da Pasta perfil)
- * Descrição: Controla o formulário de perfil com localStorage.
+ * Descrição: Controla o formulário de perfil com Validação de Tamanho de Imagem.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -39,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     /* <-----aqui termina a Inicialização de Elementos-----> */
 
-
     /* <----- Inicio da Lógica de Estado (Load/Save) -----> */
     function loadState(){ 
         try{ 
@@ -49,7 +48,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     
     function saveState(state){ 
-        try{ localStorage.setItem(storageKey,JSON.stringify(state)); }catch(e){} 
+        try{ 
+            localStorage.setItem(storageKey,JSON.stringify(state)); 
+            return true; 
+        }catch(e){
+            console.error("Erro ao salvar:", e);
+            if (e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
+                alert("Erro: A imagem escolhida é muito pesada para este protótipo. Tente uma imagem menor (menos de 500KB).");
+            } else {
+                alert("Erro ao salvar dados. Tente novamente.");
+            }
+            return false; 
+        } 
     }
     
     function render(s){ 
@@ -64,27 +74,27 @@ document.addEventListener("DOMContentLoaded", () => {
         el.profilePic.src=s.photoDataUrl||'https://via.placeholder.com/300x300.png?text=Foto'; 
     }
     
-    function fillForm(s){ 
-        for(let k in el.inputs){ el.inputs[k].value=s[k]||''; } 
-    }
+    function fillForm(s){ for(let k in el.inputs){ el.inputs[k].value=s[k]||''; } }
     /* <-----aqui termina a Lógica de Estado-----> */
-
 
     /* <----- Inicio dos Listeners e Ações -----> */
     let currentState=loadState(); 
     render(currentState);
     
     el.editButton.onclick=()=>{ fillForm(currentState); el.editModal.classList.add('active'); }
-    
     el.cancelButton.onclick=()=>{ el.editModal.classList.remove('active'); }
     
     el.saveButton.onclick=()=>{
         const newState={...currentState};
         for(let k in el.inputs){ newState[k]=el.inputs[k].value.trim(); }
-        currentState=newState; render(currentState); saveState(currentState);
-        el.editModal.classList.remove('active');
-        el.notification.classList.add('show');
-        setTimeout(()=>el.notification.classList.remove('show'),1500);
+        
+        if(saveState(newState)) {
+            currentState=newState; 
+            render(currentState);
+            el.editModal.classList.remove('active');
+            el.notification.classList.add('show');
+            setTimeout(()=>el.notification.classList.remove('show'),1500);
+        }
     };
     
     el.resetButton.onclick=()=>{ 
@@ -95,10 +105,14 @@ document.addEventListener("DOMContentLoaded", () => {
         } 
     };
 
-    el.photoInput.addEventListener('change',ev=>{ 
-        const file=ev.target.files&&ev.target.files[0]; 
-        if(!file)return; 
-        if(!file.type.startsWith('image/')){alert('Selecione um arquivo de imagem válido.');return;} 
+    el.photoInput.addEventListener('change', ev => { 
+        const file = ev.target.files && ev.target.files[0]; 
+        if(!file) return; 
+        if(!file.type.startsWith('image/')){ alert('Selecione um arquivo de imagem válido.'); return; } 
+        
+        const limiteTamanho = 500 * 1024; 
+        if (file.size > limiteTamanho) { alert("A imagem é muito grande! Escolha uma imagem menor que 500KB."); }
+
         const reader=new FileReader(); 
         reader.onload=e=>{ 
             const dataUrl=e.target.result; 
@@ -110,5 +124,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     /* <-----aqui termina os Listeners e Ações-----> */
 
-    console.log("Script de Perfil carregado!");
+    console.log("Script de Perfil carregado com validação!");
 });

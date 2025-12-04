@@ -14,7 +14,6 @@
 }
 /* <-----aqui termina as Variáveis Locais-----> */
 
-
 /* <----- Inicio da Estrutura Principal -----> */
 .conteudo-principal-perfil {
   flex: 1;
@@ -23,7 +22,7 @@
   justify-content: center;
   padding: 48px 16px;
   background-color: var(--bg);
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Sora', sans-serif; 
 }
 
 .profile-container {
@@ -35,7 +34,6 @@
   position: relative;
 }
 /* <-----aqui termina a Estrutura Principal-----> */
-
 
 /* <----- Inicio da Foto de Perfil -----> */
 .profile-photo {
@@ -77,15 +75,10 @@
   color: var(--accent);
 }
 
-.profile-photo:hover .photo-upload {
-  display: block;
-}
+.profile-photo:hover .photo-upload { display: block; }
 
-#photoInput {
-  display: none;
-}
+#photoInput { display: none; }
 /* <-----aqui termina a Foto de Perfil-----> */
-
 
 /* <----- Inicio dos Detalhes de Texto -----> */
 .profile-container h2 {
@@ -99,9 +92,7 @@
   font-weight: 600;
   margin-bottom: 14px;
 }
-.section {
-  margin-bottom: 18px;
-}
+.section { margin-bottom: 18px; }
 .section h3 {
   margin: 0 0 10px;
   color: var(--accent);
@@ -117,7 +108,6 @@
   line-height: 1.4;
 }
 /* <-----aqui termina os Detalhes de Texto-----> */
-
 
 /* <----- Inicio dos Botões e Modal -----> */
 .edit-btn {
@@ -142,20 +132,14 @@
 
 .modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0; width: 100%; height: 100%;
   background: rgba(0, 0, 0, 0.6);
   display: none;
-  align-items: center;
-  justify-content: center;
+  align-items: center; justify-content: center;
   z-index: 999;
   transition: opacity .3s ease;
 }
-.modal.active {
-  display: flex;
-}
+.modal.active { display: flex; }
 .modal-content {
   background: var(--panel);
   padding: 24px;
@@ -217,12 +201,8 @@
 .notification.show { opacity: 1; }
 /* <-----aqui termina os Botões e Modal-----> */
 
-
 /* <----- Inicio da Responsividade -----> */
 @media (max-width: 460px) {
-  .profile-container {
-    width: 100%;
-    padding: 20px;
-  }
+  .profile-container { width: 100%; padding: 20px; }
 }
 /* <-----aqui termina a Responsividade-----> */

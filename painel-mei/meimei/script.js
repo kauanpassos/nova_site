@@ -1,6 +1,6 @@
 /*
  * Arquivo: script.js (da Pasta meimei)
- * Descrição: Lógica de Chatbot com "Persona" de Coach.
+ * Descrição: Lógica de Chatbot com "Persona" de Coach (Sem Emojis).
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -10,11 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const chatForm = document.getElementById("chat-form");
     const messageInput = document.getElementById("message-input");
 
-    // Memória de curto prazo da IA
     let contextoAtual = null; 
     let dadosCalculadora = { custo: 0, lucro: 0 };
     /* <-----aqui termina a Inicialização de Variáveis-----> */
-
 
     if (!chatForm || !chatWindow || !messageInput) return;
 
@@ -30,15 +28,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     /* <-----aqui termina o Listener de Envio-----> */
 
-
-    /* <----- Inicio das Funções de Mensagem (Visual) -----> */
+    /* <----- Inicio das Funções de Mensagem -----> */
     function adicionarMensagem(remetente, texto, digitando = false) {
         const div = document.createElement('div');
         div.classList.add('mensagem', remetente === 'usuario' ? 'mensagem-usuario' : 'mensagem-ia');
         if (digitando) div.classList.add('digitando');
-        
         div.innerHTML = `<p>${texto.replace(/\n/g, '<br>')}</p>`;
-        
         chatWindow.appendChild(div);
         chatWindow.scrollTop = chatWindow.scrollHeight;
         return div;
@@ -46,7 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function processarRespostaIA(textoUsuario) {
         const divDigitando = adicionarMensagem('ia', 'MeiMei está digitando...', true);
-        
         setTimeout(() => {
             divDigitando.remove();
             const resposta = gerarRespostaInteligente(textoUsuario);
@@ -55,8 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     /* <-----aqui termina as Funções de Mensagem-----> */
 
-
-    /* <----- Inicio do Cérebro da MeiMei (Lógica de Respostas) -----> */
+    /* <----- Inicio do Cérebro da MeiMei -----> */
     function gerarRespostaInteligente(texto) {
         const t = texto.toLowerCase();
 
@@ -78,26 +71,24 @@ document.addEventListener("DOMContentLoaded", () => {
                  let margem = 100; 
                  const numero = parseFloat(t.replace(/[^0-9]/g, ''));
                  if (!isNaN(numero)) margem = numero;
-
                  const precoFinal = dadosCalculadora.custo * (1 + (margem / 100));
-                 contextoAtual = null; // Fim do fluxo
-                 
-                 return `🧮 <strong>Cálculo Pronto!</strong><br>
+                 contextoAtual = null; 
+                 return `<strong>Cálculo Pronto!</strong><br>
                  Para ter ${margem}% de lucro sobre o custo de R$ ${dadosCalculadora.custo.toFixed(2)}, você deve vender por:<br><br>
                  <span style="font-size: 1.2rem; color: #ffd700; font-weight: bold;">R$ ${precoFinal.toFixed(2)}</span><br><br>
                  Dica de Coach: Se o mercado cobrar mais caro, você pode aumentar esse preço e lucrar mais!`;
             }
 
             contextoAtual = 'perguntando_custo';
-            return "Adoro falar de números! 🤓 Para eu calcular o preço ideal, me diga primeiro: <br><strong>Qual foi o custo total dos materiais</strong> para fazer esse produto/serviço?";
+            return "Adoro falar de números! Para eu calcular o preço ideal, me diga primeiro: <br><strong>Qual foi o custo total dos materiais</strong> para fazer esse produto/serviço?";
         }
 
         // 2. DICAS DE MARKETING
         if (t.includes("marketing") || t.includes("instagram") || t.includes("post")) {
             const dicas = [
-                "📸 <strong>Ideia de Post:</strong> Tire uma foto dos bastidores! Mostre você trabalhando. Clientes amam ver o processo.",
-                "🎥 <strong>Dica de Vídeo:</strong> Faça um vídeo curto respondendo a dúvida mais comum dos seus clientes.",
-                "💬 <strong>Engajamento:</strong> Poste uma enquete nos stories: 'Qual cor vocês preferem para o próximo produto?'"
+                "<strong>Ideia de Post:</strong> Tire uma foto dos bastidores! Mostre você trabalhando. Clientes amam ver o processo.",
+                "<strong>Dica de Vídeo:</strong> Faça um vídeo curto respondendo a dúvida mais comum dos seus clientes.",
+                "<strong>Engajamento:</strong> Poste uma enquete nos stories: 'Qual cor vocês preferem para o próximo produto?'"
             ];
             return dicas[Math.floor(Math.random() * dicas.length)];
         }
