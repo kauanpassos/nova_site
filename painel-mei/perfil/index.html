@@ -4,10 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Perfil Profissional · N.O.V.A</title>
+    
     <link rel="stylesheet" href="../styleGLOBAL.css" />
     <link rel="stylesheet" href="style.css" />
+    
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet" />
   </head>
   <body>
@@ -39,7 +40,7 @@
     
     <main class="conteudo-principal-perfil">
         <div class="profile-container" role="region" aria-label="Perfil Profissional Editável">
-            <div class="profile-photo" id="photoContainer" title="Clique para alterar foto">
+            <div class="profile-photo">
               <label for="photoInput">
                 <img id="profilePic" src="https://via.placeholder.com/300x300.png?text=Foto" alt="Foto de perfil">
                 <div class="photo-upload">Alterar foto</div>
@@ -48,24 +49,41 @@
             </div>
             <h2 id="nameDisplay">—</h2>
             <div id="usernameDisplay" class="username"></div>
+            
             <button class="edit-btn" id="editButton" aria-expanded="false">Editar Perfil</button>
+            
             <div class="section">
-            <h3>Informações profissionais</h3>
-            <p><strong>Metas:</strong> <span id="metaDisplay">—</span></p>
-            <p><strong>Loja:</strong> <span id="lojaDisplay">—</span></p>
+                <h3>Informações profissionais</h3>
+                <p><strong>Metas:</strong> <span id="metaDisplay">—</span></p>
+                <p><strong>Loja:</strong> <span id="lojaDisplay">—</span></p>
             </div>
+            
             <div class="section">
-            <h3>Sobre mim</h3>
-            <p id="sobreDisplay">—</p>
+                <h3>Sobre mim</h3>
+                <p id="sobreDisplay">—</p>
             </div>
+            
             <div class="section">
-            <h3>Redes Sociais</h3>
-            <p><strong>WhatsApp:</strong> <span id="whatsDisplay">—</span></p>
-            <p><strong>Instagram:</strong> <span id="instaDisplay">—</span></p>
-            <p><strong>Facebook:</strong> <span id="faceDisplay">—</span></p>
+                <h3>Redes Sociais</h3>
+                <p><strong>WhatsApp:</strong> <span id="whatsDisplay">—</span></p>
+                <p><strong>Instagram:</strong> <span id="instaDisplay">—</span></p>
+                <p><strong>Facebook:</strong> <span id="faceDisplay">—</span></p>
             </div>
-            <button class="reset-btn" id="resetButton">Redefinir Perfil</button>
+
+            -->
+            <div class="zona-perigo">
+                <h3>Gerenciamento da Conta</h3>
+                <button class="botao-acao-perfil btn-sair" id="btn-logout">
+                    <i class='bx bx-log-out'></i> Sair da Conta
+                </button>
+                <button class="botao-acao-perfil btn-excluir-conta" id="btn-delete-account">
+                    <i class='bx bx-trash'></i> Excluir Conta e Dados
+                </button>
+            </div>
+            -->
+
         </div>
+
         <div class="modal" id="editModal">
             <div class="modal-content">
             <form class="edit-form" id="editForm" onsubmit="return false;">
@@ -92,9 +110,11 @@
         </div>
         <div class="notification" id="notification">Perfil salvo com sucesso!</div>
     </main>
+
     <footer class="rodape">
-      <p>© 2025 N.O.V.A. Todos os direitos reservados · <a href="#">Termos</a> · <a href="#">Privacidade</a></p>
+      <p>© 2025 N.O.V.A. Todos os direitos reservados</p>
     </footer>
+    
     <script src="../appGLOBAL.js" defer></script>
     <script src="script.js" defer></script>
   </body>

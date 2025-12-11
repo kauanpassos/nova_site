@@ -1,6 +1,6 @@
 /*
  * Arquivo: script.js (da Pasta perfil)
- * Descrição: Controla o formulário de perfil com Validação de Tamanho de Imagem.
+ * Descrição: Controla o perfil, imagem e botões de conta (Sair/Excluir).
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
         editForm: document.getElementById('editForm'),
         saveButton: document.getElementById('saveButton'),
         cancelButton: document.getElementById('cancelButton'),
-        resetButton: document.getElementById('resetButton'),
         notification: document.getElementById('notification'),
         inputs: {
             name: document.getElementById('editName'),
@@ -39,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     /* <-----aqui termina a Inicialização de Elementos-----> */
 
-    /* <----- Inicio da Lógica de Estado (Load/Save) -----> */
+    /* <----- Inicio da Lógica de Estado -----> */
     function loadState(){ 
         try{ 
             const raw=localStorage.getItem(storageKey); 
@@ -52,12 +51,8 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.setItem(storageKey,JSON.stringify(state)); 
             return true; 
         }catch(e){
-            console.error("Erro ao salvar:", e);
-            if (e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
-                alert("Erro: A imagem escolhida é muito pesada para este protótipo. Tente uma imagem menor (menos de 500KB).");
-            } else {
-                alert("Erro ao salvar dados. Tente novamente.");
-            }
+            console.error(e);
+            alert("Erro ao salvar. Verifique o tamanho da imagem.");
             return false; 
         } 
     }
@@ -87,7 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
     el.saveButton.onclick=()=>{
         const newState={...currentState};
         for(let k in el.inputs){ newState[k]=el.inputs[k].value.trim(); }
-        
         if(saveState(newState)) {
             currentState=newState; 
             render(currentState);
@@ -96,23 +90,11 @@ document.addEventListener("DOMContentLoaded", () => {
             setTimeout(()=>el.notification.classList.remove('show'),1500);
         }
     };
-    
-    el.resetButton.onclick=()=>{ 
-        if(confirm('Tem certeza que deseja apagar todos os dados do perfil?')){ 
-            localStorage.removeItem(storageKey); 
-            currentState={...defaultState}; 
-            render(currentState);
-        } 
-    };
 
     el.photoInput.addEventListener('change', ev => { 
         const file = ev.target.files && ev.target.files[0]; 
         if(!file) return; 
-        if(!file.type.startsWith('image/')){ alert('Selecione um arquivo de imagem válido.'); return; } 
-        
-        const limiteTamanho = 500 * 1024; 
-        if (file.size > limiteTamanho) { alert("A imagem é muito grande! Escolha uma imagem menor que 500KB."); }
-
+        if(file.size > 500 * 1024) { alert("Imagem muito grande (max 500KB)."); return; }
         const reader=new FileReader(); 
         reader.onload=e=>{ 
             const dataUrl=e.target.result; 
@@ -124,5 +106,37 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     /* <-----aqui termina os Listeners e Ações-----> */
 
-    console.log("Script de Perfil carregado com validação!");
+    /* <----- Inicio da Lógica de Logout e Exclusão -----> */
+    const btnLogout = document.getElementById('btn-logout');
+    const btnDelete = document.getElementById('btn-delete-account');
+
+    if (btnLogout) {
+        btnLogout.addEventListener('click', () => {
+            localStorage.removeItem('nova_session_token');
+            // CORREÇÃO: Caminho para a nova SPA de login
+            window.location.href = '../login/index.html';
+        });
+    }
+
+    if (btnDelete) {
+        btnDelete.addEventListener('click', () => {
+            // Usa o modal global injetado no appGLOBAL.js
+            if (typeof mostrarConfirmacao === 'function') {
+                mostrarConfirmacao("Isso apagará TODOS os seus dados (lançamentos, estoque, perfil). Tem certeza?", () => {
+                    localStorage.clear();
+                    alert("Conta excluída.");
+                    window.location.href = '../login/index.html';
+                });
+            } else {
+                // Fallback de segurança
+                if(confirm("Isso apagará tudo. Continuar?")) {
+                    localStorage.clear();
+                    window.location.href = '../login/index.html';
+                }
+            }
+        });
+    }
+    /* <-----aqui termina a Lógica de Logout e Exclusão-----> */
+
+    console.log("Script de Perfil carregado.");
 });

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acesso · N.O.V.A</title>
+    
+    <link rel="stylesheet" href="../styleGLOBAL.css">
+    <link rel="stylesheet" href="style.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="auth-container">
+        
+        <div class="auth-card" id="card-login">
+            <div class="auth-header">
+                <h1 class="logo">N.O.V.A</h1>
+                <p>Bem-vindo de volta! Vamos trabalhar?</p>
+            </div>
+            
+            <form id="form-login">
+                <div class="campo">
+                    <label for="login-email">E-mail</label>
+                    <input type="email" id="login-email" placeholder="seu@email.com" required>
+                </div>
+                <div class="campo">
+                    <label for="login-senha">Senha</label>
+                    <input type="password" id="login-senha" placeholder="********" required>
+                </div>
+                
+                <button type="submit" class="botao botao--principal botao-full">
+                    Entrar no Painel <i class='bx bx-log-in-circle'></i>
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Ainda não tem conta? <a href="#" id="link-ir-cadastro">Criar agora</a></p>
+            </div>
+        </div>
+
+        <div class="auth-card oculto" id="card-cadastro">
+            <div class="auth-header">
+                <h1 class="logo">N.O.V.A</h1>
+                <p>Crie sua conta e organize seu negócio.</p>
+            </div>
+            
+            <form id="form-cadastro">
+                <div class="campo">
+                    <label for="reg-email">E-mail</label>
+                    <input type="email" id="reg-email" placeholder="seu@email.com" required>
+                </div>
+                <div class="campo">
+                    <label for="reg-senha">Senha</label>
+                    <input type="password" id="reg-senha" placeholder="Crie uma senha forte" required>
+                </div>
+                <div class="campo">
+                    <label for="reg-senha-confirm">Confirmar Senha</label>
+                    <input type="password" id="reg-senha-confirm" placeholder="Repita a senha" required>
+                </div>
+                
+                <button type="submit" class="botao botao--principal botao-full">
+                    Criar Conta <i class='bx bx-user-plus'></i>
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Já tem uma conta? <a href="#" id="link-ir-login">Fazer Login</a></p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
