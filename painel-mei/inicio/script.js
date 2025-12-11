@@ -1,7 +1,3 @@
-/*
- * Arquivo: script.js (da Pasta inicio)
- * DESCRIÇÃO: Dashboard Inteligente. Carrega dados REAIS do localStorage.
- */
 
 document.addEventListener("DOMContentLoaded", () => {
   

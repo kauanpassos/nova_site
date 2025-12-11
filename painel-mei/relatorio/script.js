@@ -1,7 +1,3 @@
-/*
- * Arquivo: script.js (da Pasta relatorio)
- * Descrição: Inicia o gráfico de barras (ApexCharts).
- */
 
 document.addEventListener("DOMContentLoaded", () => {
   const filtroPeriodo = document.getElementById("filtro-periodo");

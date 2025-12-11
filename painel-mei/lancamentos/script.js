@@ -1,7 +1,3 @@
-/*
- * Arquivo: script.js (da Pasta lancamentos)
- * DESCRIÇÃO: CRUD Completo, Blindado e com UX de Confirmação.
- */
 
 document.addEventListener("DOMContentLoaded", () => {
     

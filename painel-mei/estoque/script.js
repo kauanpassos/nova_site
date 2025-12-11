@@ -1,7 +1,3 @@
-/*
- * Arquivo: script.js (da Pasta estoque)
- * DESCRIÇÃO: CRUD de Estoque com Validade, Máscara, Alertas e UX Consistente.
- */
 
 document.addEventListener("DOMContentLoaded", () => {
 

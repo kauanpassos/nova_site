@@ -1,7 +1,3 @@
-/*
- * Arquivo: script.js (da Pasta login)
- * DESCRIÇÃO: Lógica de Autenticação e Alternância de Telas (SPA).
- */
 
 document.addEventListener("DOMContentLoaded", () => {
     

@@ -1,7 +1,3 @@
-/*
- * Arquivo: script.js (da Pasta meimei)
- * Descrição: Lógica de Chatbot com "Persona" de Coach (Sem Emojis).
- */
 
 document.addEventListener("DOMContentLoaded", () => {
     

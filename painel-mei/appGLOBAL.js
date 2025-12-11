@@ -1,7 +1,3 @@
-/*
- * Arquivo: appGLOBAL.js
- * DESCRIÇÃO: Funcionalidades globais, Injeção do Modal e Segurança de Rota.
- */
 
 /* <----- Inicio da Verificação de Segurança (Porteiro) -----> */
 (function verificarLogin() {

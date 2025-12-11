@@ -1,7 +1,3 @@
-/*
- * Arquivo: script.js (da Pasta perfil)
- * Descrição: Controla o perfil, imagem e botões de conta (Sair/Excluir).
- */
 
 document.addEventListener("DOMContentLoaded", () => {
     

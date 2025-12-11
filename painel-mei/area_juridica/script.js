@@ -1,7 +1,3 @@
-/*
- * Arquivo: script.js (da Pasta area_juridica)
- * Descrição: Carrega, valida e salva os dados da empresa (PJ).
- */
 
 document.addEventListener("DOMContentLoaded", () => {
   const formulario = document.getElementById("form-dados-empresa");
